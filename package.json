@@ -1,0 +1,22 @@
+{
+  "name": "ideabox",
+  "version": "1.0.0",
+  "description": "Ideabox is a simple application that allows users to create a pool of ideas and promote collaboration",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bumsyalao/ideabox.git"
+  },
+  "keywords": [
+    "ideabox"
+  ],
+  "author": "Bunmi Alao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bumsyalao/ideabox/issues"
+  },
+  "homepage": "https://github.com/bumsyalao/ideabox#readme"
+}
