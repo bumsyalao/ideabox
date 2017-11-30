@@ -1,7 +1,8 @@
 import validator from 'validator';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 import User from '../models/User';
+import sendMail from '../middleware/sendMail';
 
 require('dotenv').config();
 
@@ -25,7 +26,6 @@ class Users {
       req.body.username &&
       req.body.username.trim() &&
       req.body.password &&
-      req.body.password.length > 7 &&
       req.body.email &&
       validator.isEmail(req.body.email)
     ) {
@@ -142,6 +142,7 @@ class Users {
       });
     }
   }
+
   /**
    * Send Reset password email
    * Routes: POST: /api/v1/user/forgot-password
@@ -149,46 +150,107 @@ class Users {
    * @param {object} res
    * @returns {response} response object
    */
-  // sendResetPassword(req, res) {
-  //   const email = req.body.email;
-  //   const salt = bcrypt.genSaltSync(8);
-  //   const hash = bcrypt.hashSync(email, salt);
-  //   const date = new Date();
+  sendResetPassword(req, res) {
+    req.body.email = req.body.email.trim();
+    const hash = crypto.randomBytes(20).toString('hex');
+    const date = Date.now() + 3600000;
 
-  //   date.setHours(date.getHours() + 1);
+    if (req.body.email) {
+      return User.findOne({
+        email: req.body.email
+      }).then((user) => {
+        if (user === null) {
+          return res.status(404).send({
+            success: false,
+            message: 'User does not exist'
+          });
+        }
+        user.hash = hash;
+        user.expiryTime = date;
 
-  //   if (email === undefined || email.trim() === ' ') {
-  //     res.status(400).send({
-  //       data: { error: { message: 'email is not valid' } }
-  //     });
-  //     return;
-  //   }
-  //   User.findOne({
-  //     email
-  //   }).then((user) => {
-  //     if (user === null) {
-  //       res.status(404).send({ message: 'User does not exist' });
-  //     } else {
-  //       user
-  //         .update({
-  //           hash,
-  //           expiryTime: date
-  //         })
-  //         .then((updatedUser) => {
-  //           // send email here
-  //           sendMail(updatedUser.email, hash, req.headers.host);
-  //           res.status(200).send({
-  //             updatedUser
-  //           });
-  //         })
-  //         .catch((error) => {
-  //           res.status(500).send({
-  //             data: { error: { message: error } }
-  //           });
-  //         });
-  //     }
-  //   });
-  // }
+        user.save((error, updatedUser) => {
+          if (error) {
+            return res.status(400).send({
+              success: false,
+              message: error
+            });
+          }
+
+          // send mail to the user
+          sendMail(updatedUser.email, hash, req.headers.host);
+
+          res.send({
+            success: true,
+            message: 'Mail has been sent'
+          });
+        });
+      }).catch(error => res.status(500).send({
+        message: error.message
+      }));
+    }
+    return res.status(400).send({
+      success: false,
+      message: 'No email sent'
+    });
+  }
+
+  /**
+   * Update Password
+   * Route: POST: /api/v1/user/update-password/:hash
+   * @param {object} req
+   * @param {object} res
+   *  @return {void}
+   */
+  updatePassword(req, res) {
+    return User.findOne({ hash: req.params.hash })
+      .then((user) => {
+        if (user === null) {
+          return res.status(404).send({
+            success: false,
+            message: 'User does not exist'
+          });
+        }
+
+        if (
+          req.body.newPassword &&
+          req.body.confirmPassword &&
+          req.body.newPassword === req.body.confirmPassword
+        ) {
+          const currentTime = Date.now();
+
+          if (currentTime > user.expiryTime) {
+            return res.status(410).send({
+              success: false,
+              message: 'Expired link'
+            });
+          }
+          user.password = req.body.newPassword;
+          user.save((err, updatedUser) => {
+            if (err) {
+              return res.status(400).send({
+                success: false,
+                message: err.message
+              });
+            }
+
+            res.status(201).send({
+              success: true,
+              message: 'Password has been updated',
+              updatedUser
+            });
+          });
+        } else {
+          return res.status(400).send({
+            success: false,
+            message: 'Please confirm passwords'
+          });
+        }
+      })
+      .catch(error => res.status(500).send({
+        success: false,
+        message: error.message
+      }));
+  }
 }
 
 export default new Users();
