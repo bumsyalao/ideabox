@@ -26,7 +26,7 @@ const sendMail = (email, hash, headers) => {
 
   // setup email data with unicode symbols
   const mailOptions = {
-    from: '"POST_IT" <postit.nownow@gmail.com>', // sender address
+    from: '"IDEA-BOX" <postit.nownow@gmail.com>', // sender address
     to: email,
     subject: 'Reset Your Password_IDEABOX', // Subject line
     html: `<body><div>

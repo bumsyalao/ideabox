@@ -2,3 +2,5 @@
 .DS_Store
 .env
 dist
+.nyc_output
+coverage

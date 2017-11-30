@@ -33,7 +33,7 @@ class Users {
         email: req.body.email
       }).exec((err, existingUser) => {
         if (existingUser) {
-          return res.status(400).send({
+          return res.status(409).send({
             success: false,
             error: 'existingUser',
             message: 'A user already exists with that email'
@@ -43,7 +43,7 @@ class Users {
         const newUser = new User(req.body);
         newUser.save((err) => {
           if (err) {
-            return res.status(400).send({
+            return res.status(409).send({
               success: false,
               message: 'A user already exists with that username'
             });
@@ -63,7 +63,7 @@ class Users {
             email: newUser.email
           };
           // return user
-          return res.status(200).send({
+          return res.status(201).send({
             success: true,
             message: 'Your account has been created',
             userDetails,
@@ -90,7 +90,7 @@ class Users {
    */
   login(req, res) {
     if (req.body.username && req.body.password) {
-      User.findOne({ username: req.body.username })
+      User.findOne({ username: req.body.username }).exec()
         .then((foundUser) => {
           if (foundUser) {
             foundUser.comparePassword(req.body.password, (err, isMatch) => {
@@ -115,17 +115,17 @@ class Users {
                   token
                 });
               }
-              return res.status(400).send({
+              return res.status(404).send({
                 success: false,
                 error: 'invalid',
                 message: 'User not found'
               });
             });
           } else {
-            return res.status(400).send({
+            return res.status(404).send({
               success: false,
               error: 'invalid',
-              message: 'User not found'
+              message: 'Invalid username or password'
             });
           }
         })
