@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - "6.11.2"
+services:
+  - mongodb
+script:
+  - npm test
+after_success: 
+  - npm run coveralls

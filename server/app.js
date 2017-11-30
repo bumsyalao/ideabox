@@ -8,7 +8,16 @@ const route = require('./routes');
 
 require('dotenv').config();
 
-mongoose.connect(process.env.DATABASE_URL);
+mongoose.Promise = global.Promise;
+if (process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'test') {
+    mongoose.connect(process.env.DATABASE_URL_TEST);
+  } else {
+    mongoose.connect(process.env.DATABASE_URL_DEV);
+  }
+} else {
+  mongoose.connect(process.env.DATABASE_URL);
+}
 
 const app = express();
 
@@ -30,3 +39,5 @@ app.get('*', (req, res) => {
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}!`);
 });
+
+export default app;
