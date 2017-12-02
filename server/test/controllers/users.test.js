@@ -1,7 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import supertest from 'supertest';
-import faker from 'faker';
 import mongoose from 'mongoose';
 import Users from '../../controllers/Users';
 import app from '../../app';
@@ -11,7 +10,9 @@ import {
   invalidEmail,
   noPassword,
   invalidPassword,
-  validSignin } from '../helper';
+  validSignin,
+  dummy2User,
+} from '../helper';
 
 require('dotenv').config();
 
@@ -20,14 +21,25 @@ const { expect } = chai;
 
 chai.should();
 chai.use(chaiHttp);
+let validToken;
 
 before((done) => {
   mongoose.createConnection(process.env.DATABASE_URL_TEST, () => {
     mongoose.connection.db.dropDatabase(() => {
-      done();
     });
   });
+  api
+    .post('/api/v1/user/register', Users.register)
+    .set('Accept', 'application/json')
+    .send(dummy2User)
+    .end((err, res) => {
+      if (!err) {
+        validToken = res.body.token;
+      }
+      done();
+    });
 });
+
 
 describe('Users', () => {
   describe('Register', () => {
@@ -87,7 +99,7 @@ describe('Users', () => {
           done();
         });
     });
-  }); // End of SignUp Test Suite
+  });
 
   describe('Login', () => {
     it('should return 200 on successful login', (done) => {
@@ -131,6 +143,22 @@ describe('Users', () => {
           }
           done();
         });
-    }); // End of SignIn
+    });
+  });
+
+  describe('update profile', () => {
+    it('should return 404 when user dows not exist', (done) => {
+      api
+        .put('/api/v1/user/update', Users.updateProfile)
+        .set('x-access-token', validToken)
+        .end((err, res) => {
+          if (res) {
+            expect(res).to.have.status(404);
+            res.body.should.have.property('message')
+              .equal('User does not exist');
+          }
+          done();
+        });
+    });
   });
 });

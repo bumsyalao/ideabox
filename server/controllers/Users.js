@@ -14,7 +14,7 @@ const secret = process.env.SECRET_TOKEN;
  */
 class Users {
   /**
-   *
+   * Register User
    * Route: POST: /api/v1/user/register
    * @param {object} req
    * @param {object} res
@@ -81,7 +81,7 @@ class Users {
   }
 
   /**
-   *
+   * Login User
    * Route: POST: /api/v1/user/login
    * @param {any} req
    * @param {any} res
@@ -141,6 +141,55 @@ class Users {
         message: 'Incomplete login details'
       });
     }
+  }
+  /**
+   * Update user profile
+   * Route: PUT: /api/v1/user/update
+   * @param {object} req
+   * @param {object} res
+   * @returns {void}
+   * @memberOf Users
+   */
+  updateProfile(req, res) {
+    User.findOne({ _id: req.decoded.id })
+      .then((foundUser) => {
+        if (!foundUser) {
+          return res.status(404).send({
+            success: false,
+            error: 'Not found',
+            message: 'User does not exist'
+          });
+        }
+        if (
+          req.body.username &&
+          req.body.email &&
+          req.body.password
+        ) {
+          foundUser.username = req.body.username;
+          foundUser.email = req.body.email;
+          foundUser.password = req.body.password;
+          foundUser.save((err) => {
+            if (err) {
+              return res.status(400).send({
+                success: false,
+                error: err.message,
+                message: 'There was an error while updating your Profile'
+              });
+            }
+            return res.status(200).send({
+              success: true,
+              message: 'Your profile has been updated succesfully',
+              foundUser
+            });
+          });
+        } else {
+          return res.status(400).send({
+            success: false,
+            error: 'Empty fields',
+            message: 'All fields are required'
+          });
+        }
+      });
   }
 
   /**
