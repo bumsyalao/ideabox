@@ -6,12 +6,31 @@ module.exports = {
     password: 'medicine'
   },
 
+  dummyUser: {
+    username: 'candydum45',
+    email: 'chopperdum45@email.com',
+    password: 'medicinedum'
+  },
+  dummy2User: {
+    username: 'candydum45gh',
+    email: 'chopperdum45gh@email.com',
+    password: 'medicinedum'
+  },
+  dumUser: {
+    username: 'dumdum',
+    email: 'dumduma@email.com',
+    password: 'dum'
+  },
   existingEmail: {
     username: 'userssname',
     email: 'chopper@email.com',
     password: 'invalid'
   },
-
+  updatedUser: {
+    username: 'updated me',
+    email: 'updated me at test.com',
+    password: 'update'
+  },
   invalidEmail: {
     username: 'good',
     email: 'bad.com',
@@ -43,116 +62,23 @@ module.exports = {
     access: 'public'
   },
 
+  editIdea: {
+    title: 'edit idea',
+    description: 'for doing stuff',
+    category: 'comedy',
+    access: 'public'
+  },
+  deleteIdea: {
+    title: 'delete idea',
+    description: 'for doing stuff',
+    category: 'comedy',
+    access: 'public'
+  },
+
   invalidIdea: {
     description: 'for doing stuff',
     category: 'comedy',
     access: 'public'
   }
 
-  // newUser: {
-  //   email: 'zimzim1@chess.com',
-  //   username: 'zimzim1',
-  //   password: 'waitingMove',
-  //   phoneNumber: '09082091930'
-  // },
-
-
-  // noUsername: {
-  //   password: 'medicine'
-  // },
-
-
-  // usergroupSignin: {
-  //   email: 'zugzwang@chess.com',
-  //   username: 'winner',
-  //   password: 'waitingMove',
-  //   phoneNumber: '09082091930'
-  // },
-
-  // usergroupGroup: {
-  //   groupName: 'abcdefgijklmnop'
-  // },
-
-  // usergroupUser: {
-  //   email: 'zugzzaw@chess.com',
-  //   username: 'winnerme',
-  //   password: 'waitinglove',
-  //   phoneNumber: '09082091932'
-  // },
-
-  // usergroupsUsergroup: {
-  //   userId: 1,
-  //   groupId: 1,
-  //   groupName: 'abcdefgijklmnop',
-  //   username: 'winner'
-  // },
-
-  // messagesGroup: {
-  //   groupName: 'abcdefgijklmnop'
-  // },
-
-  // messagesUsergroups: {
-  //   userId: 1,
-  //   groupId: 1,
-  //   groupName: 'abcdefgijklmnop',
-  //   username: 'eyepencil'
-  // },
-
-  // message: {
-  //   message: 'Test message',
-  //   messagePriority: 'normal'
-  // },
-
-  // groupUser: {
-  //   email: 'abracad@chess.com',
-  //   username: 'abracad',
-  //   password: 'waitingMove',
-  //   phoneNumber: '09082091930'
-  // },
-
-  // group: {
-  //   groupName: 'People'
-  // },
-
-  // // model data
-
-  // userDetails: {
-  //   email: 'power.rangers@super.com',
-  //   username: 'zack',
-  //   password: 'alfalfa',
-  //   phoneNumber: '09082091930'
-  // },
-
-  // requiredFields: [
-  //   'username', 'email', 'password', 'phoneNumber'
-  // ],
-
-  // uniqueFields: ['email', 'username'],
-
-  // invalidUserid: {
-  //   groupId: 17, userId: null
-  // },
-
-  // invalidGroupid: {
-  //   groupId: null, userId: 20
-  // },
-
-  // messageInfo: {
-  //   groupId: 2,
-  //   userId: 2,
-  //   message: 'this is a test',
-  //   messagePriority: 'Urgent'
-  // },
-
-  // newGroup: {
-  //   groupName: 'test'
-  // },
-
-  // emptyGroupname: {
-  //   groupName: ' '
-  // },
-
-  // nullGroupname: {
-  //   groupName: null
-  // }
 };

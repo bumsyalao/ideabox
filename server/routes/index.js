@@ -10,12 +10,20 @@ module.exports = (app) => {
   app.post('/api/v1/user/register', Users.register);
   // api route to login user
   app.post('/api/v1/user/login', Users.login);
+  // api route to update users profile
+  app.put('/api/v1/user/update', auth.checkToken, Users.updateProfile);
   // api route to send reset password email
   app.post('/api/v1/user/forgot-password', Users.sendResetPassword);
   // api route to update password
   app.put('/api/v1/user/update-password/:hash', Users.updatePassword);
   // api route to create a new Idea
-  app.post('/api/v1/idea', auth.checkToken, Ideas.create);
+  app.post('/api/v1/idea', auth.checkToken, Ideas.createIdea);
   // api route to get a users Ideas
-  // app.get('/api/v1/ideas', auth.checkToken, Ideas.retrieveIdea);
+  app.get('/api/v1/idea', auth.checkToken, Ideas.retrieveUserIdeas);
+  // api route to get all public ideas
+  app.get('/api/v1/ideas', auth.checkToken, Ideas.retrieveIdeas);
+  // api route to update an Idea
+  app.put('/api/v1/idea/:ideaId', auth.checkToken, Ideas.editIdea);
+  // api route to delete an Idea
+  app.delete('/api/v1/idea/:ideaId', auth.checkToken, Ideas.deleteIdea);
 };
