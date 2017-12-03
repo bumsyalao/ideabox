@@ -61,6 +61,12 @@ module.exports = {
     category: 'comedy',
     access: 'public'
   },
+  valid2Idea: {
+    title: 'my ideaSS',
+    description: 'for doing stuff',
+    category: 'comedy',
+    access: 'public'
+  },
 
   editIdea: {
     title: 'edit idea',

@@ -4,13 +4,17 @@ const { Schema } = mongoose.Schema;
 
 
 const IdeaSchema = new mongoose.Schema({
-  title: { type: String, required: true, unique: true },
+  title: { type: String,
+    required: true,
+    unique: true,
+    lowercase: true,
+    trim: true },
   authorId:
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
-    },
-  description: { type: String, required: true },
+  {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  description: { type: String, required: true, trim: true },
   category: { type: String, required: true },
   access: { type: String, required: true },
   modified: { type: Boolean, default: false },
