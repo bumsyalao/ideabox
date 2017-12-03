@@ -26,4 +26,6 @@ module.exports = (app) => {
   app.put('/api/v1/idea/:ideaId', auth.checkToken, Ideas.editIdea);
   // api route to delete an Idea
   app.delete('/api/v1/idea/:ideaId', auth.checkToken, Ideas.deleteIdea);
+  // api route to search for Ideas
+  app.post('/api/v1/ideas', auth.checkToken, Ideas.searchIdeas);
 };

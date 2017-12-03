@@ -23,7 +23,6 @@ class Users {
    */
   register(req, res) {
     if (
-      req.body.username &&
       req.body.username.trim() &&
       req.body.password &&
       req.body.email &&
@@ -161,9 +160,9 @@ class Users {
           });
         }
         if (
-          req.body.username &&
-          req.body.email &&
-          req.body.password
+          req.body.username.trim() &&
+          req.body.email.trim() &&
+          req.body.password.trim()
         ) {
           foundUser.username = req.body.username;
           foundUser.email = req.body.email;
