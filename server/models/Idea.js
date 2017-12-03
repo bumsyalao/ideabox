@@ -15,9 +15,9 @@ const IdeaSchema = new mongoose.Schema({
   access: { type: String, required: true },
   modified: { type: Boolean, default: false },
   createdAt: Date,
-  updatedAt: Date
+  updatedAt: Date,
 });
-
+IdeaSchema.index({ title: 'text', description: 'text' });
 const Idea = mongoose.model('Idea', IdeaSchema);
 
 export default Idea;

@@ -1,4 +1,5 @@
 import Idea from '../models/Idea';
+import pagination from '../middleware/pagination';
 
 /**
  *
@@ -16,8 +17,8 @@ class Ideas {
    */
   createIdea(req, res) {
     if (
-      req.body.title &&
-      req.body.description &&
+      req.body.title.trim() &&
+      req.body.description.trim() &&
       req.body.category &&
       req.body.access
     ) {
@@ -93,15 +94,15 @@ class Ideas {
   }
 
   /**
-   * Get all public Ideas
-   * Routes: PUT: /api/v1/idea
+   * Get all Ideas
+   * Routes: GET: /api/v1/ideas
    * @param {any} req
    * @param {any} res
    * @return {void}
    * @memberOf Ideas
    */
   retrieveIdeas(req, res) {
-    Idea.find({ access: 'public' }).exec()
+    Idea.find().exec()
       .then((foundIdeas) => {
         if (!foundIdeas) {
           return res.status(404).send({
@@ -176,8 +177,8 @@ class Ideas {
       });
   }
 
-
   /**
+   * Delete Idea
    * Routes: DELETE: /api/v1/idea/:ideaId
    * @param {any} req
    * @param {any} res
@@ -221,6 +222,41 @@ class Ideas {
         error: error.messae,
         message: 'Bad Request'
       }));
+  }
+  
+  /**
+   * Search Ideas
+   * Route: POST: /api/v1/ideas?limit=${limit}&offset=${offset}
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   * @memberOf Ideas
+   */
+  searchIdeas(req, res) {
+    if (!req.body.searchParam) {
+      res.status(400).send({
+        message: 'please add search term'
+      });
+    }
+    const offset = Number(req.query.offset);
+    const limit = Number(req.query.limit);
+    let count;
+    Idea.count({
+      $text: { $search: req.body.searchParam.trim() },
+      category: req.body.category
+    }, (err, iscount) => {
+      count = iscount;
+    });
+    const promise = Idea.find({
+      $text: { $search: req.body.searchParam.trim() },
+      category: req.body.category
+    })
+      .skip(offset)
+      .limit(limit).exec();
+    promise.then(ideas => res.status(200).send({
+      ideas,
+      pageInfo: pagination(count, limit, offset),
+    }));
   }
 }
 
