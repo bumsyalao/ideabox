@@ -1,11 +1,21 @@
 {
   "root": true,
   "extends": "airbnb",
+  "parser": "babel-eslint",
   "env": {
     "node": true,
     "es6": true,
     "mocha": true
   },
+  "plugins": [
+    "react",
+    "import"
+  ],
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    }
+    },
   "rules": {
     "eqeqeq": 0,
     "one-var": 0,
@@ -32,5 +42,21 @@
             "ClassDeclaration": true
         }
     }]
+  },
+  "globals": {
+    "Materialize": true,
+    "React": true,
+    "window": true,
+    "$": true,
+    "document": true,
+    "localStorage": true,
+    "componentDidMount": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js",".jsx",".png"]
+      }
+    }
   }
 }

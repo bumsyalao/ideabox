@@ -98,7 +98,6 @@ const sendMail = (email, hash, headers) => {
     if (error) {
       return error;
     }
-    console.log(`${info.messageId} send: ${info.response}`);
   });
 };
 

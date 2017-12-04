@@ -188,7 +188,12 @@ class Users {
             message: 'All fields are required'
           });
         }
-      });
+      }).catch(() => res.status(404).send({
+        success: false,
+        error: 'Not found',
+        message: 'User does not exist'
+
+      }));
   }
 
   /**

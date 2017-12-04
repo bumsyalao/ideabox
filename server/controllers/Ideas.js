@@ -132,7 +132,7 @@ class Ideas {
    */
   editIdea(req, res) {
     const id = req.decoded.id;
-    Idea.findOne({ _id: req.params.ideaId })
+    Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
         if (!foundIdea) {
           return res.status(404).send({
@@ -187,7 +187,7 @@ class Ideas {
    */
   deleteIdea(req, res) {
     const id = req.decoded.id;
-    Idea.findOne({ _id: req.params.ideaId })
+    Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
         if (!foundIdea) {
           return res.status(404).send({
@@ -199,7 +199,7 @@ class Ideas {
         if (id != foundIdea.authorId) {
           return res.status(403).send({
             success: false,
-            error: 'Unauthorized',
+            error: 'Forbidden',
             message: 'You are not allowed to delete an Idea you did not create'
           });
         }
@@ -235,6 +235,7 @@ class Ideas {
   searchIdeas(req, res) {
     if (!req.body.searchParam) {
       res.status(400).send({
+        success: false,
         message: 'please add search term'
       });
     }

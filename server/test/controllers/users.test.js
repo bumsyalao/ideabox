@@ -147,15 +147,12 @@ describe('Users', () => {
   });
 
   describe('update profile', () => {
-    it('should return 404 when user dows not exist', (done) => {
+    it('should return 404 when user does not exist', (done) => {
       api
         .put('/api/v1/user/update', Users.updateProfile)
-        .set('x-access-token', validToken)
         .end((err, res) => {
           if (res) {
-            expect(res).to.have.status(404);
-            res.body.should.have.property('message')
-              .equal('User does not exist');
+            expect(res).to.have.status(401);
           }
           done();
         });
