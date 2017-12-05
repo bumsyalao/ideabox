@@ -1,5 +1,6 @@
 import Users from '../controllers/Users';
 import Ideas from '../controllers/Ideas';
+import Comments from '../controllers/Comments';
 import auth from '../middleware/auth';
 
 module.exports = (app) => {
@@ -28,4 +29,8 @@ module.exports = (app) => {
   app.delete('/api/v1/idea/:ideaId', auth.checkToken, Ideas.deleteIdea);
   // api route to search for Ideas
   app.post('/api/v1/ideas', auth.checkToken, Ideas.searchIdeas);
+  // api to add a comment to an Idea
+  app.post('/api/v1/idea/:ideaId/comment', auth.checkToken, Comments.addComment);
+  // api to add a comment to an Idea
+  app.get('/api/v1/idea/:ideaId/comment', auth.checkToken, Comments.getComments);
 };

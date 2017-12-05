@@ -85,6 +85,13 @@ module.exports = {
     description: 'for doing stuff',
     category: 'comedy',
     access: 'public'
+  },
+
+  myComment: {
+    comment: 'I enjoyed this piece'
+  },
+  nullComment: {
+    comment: null
   }
 
 };

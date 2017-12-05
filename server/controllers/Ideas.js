@@ -74,10 +74,9 @@ class Ideas {
   retrieveUserIdeas(req, res) {
     Idea.find({ authorId: req.decoded.id }).exec()
       .then((foundIdeas) => {
-        if (!foundIdeas) {
+        if (!foundIdeas.length) {
           return res.status(404).send({
-            success: false,
-            error: 'No Idea',
+            success: true,
             message: 'You have no Idea'
           });
         }
@@ -102,12 +101,11 @@ class Ideas {
    * @memberOf Ideas
    */
   retrieveIdeas(req, res) {
-    Idea.find().exec()
+    Idea.find({ access: 'public' }).exec()
       .then((foundIdeas) => {
-        if (!foundIdeas) {
+        if (!foundIdeas.length) {
           return res.status(404).send({
-            success: false,
-            error: 'No Idea',
+            success: true,
             message: 'You have no Idea'
           });
         }
@@ -134,7 +132,7 @@ class Ideas {
     const id = req.decoded.id;
     Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
-        if (!foundIdea) {
+        if (!foundIdea.length) {
           return res.status(404).send({
             success: false,
             error: 'Not found',
@@ -174,7 +172,11 @@ class Ideas {
             message: 'All fields are required'
           });
         }
-      });
+      }).catch(err => res.status(400).send({
+        success: false,
+        error: 'Database Error',
+        message: err.message
+      }));
   }
 
   /**
@@ -189,7 +191,7 @@ class Ideas {
     const id = req.decoded.id;
     Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
-        if (!foundIdea) {
+        if (!foundIdea.length) {
           return res.status(404).send({
             success: false,
             error: 'Not found',
@@ -223,7 +225,7 @@ class Ideas {
         message: 'Bad Request'
       }));
   }
-  
+
   /**
    * Search Ideas
    * Route: POST: /api/v1/ideas?limit=${limit}&offset=${offset}
