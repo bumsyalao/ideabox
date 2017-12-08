@@ -1,0 +1,397 @@
+/* General variables */
+$bdrds: 3px;
+
+$white: #fff;
+$black: #000;
+$gray: #ccc;
+$amber: #ffc107;
+$salmon: #e8716d;
+$green: #a6c6a6;
+$smoky-black: rgba(#222222, .85);
+
+$ff: 'Montserrat', sans-serif;
+$ff-body: 12px;
+$ff-light: 300;
+$ff-regular: 400;
+$ff-medium: 500;
+
+
+/* General configurations */
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  font-family: $ff;
+  font-size: $ff-body;
+  line-height: 1em;
+}
+  
+button {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+}
+  
+input {
+  background-color: transparent;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  
+  &[type="submit"] {
+    cursor: pointer;
+  }
+    
+  &::-webkit-input-placeholder {
+    font-size: .85rem;
+    font-family: $ff;
+    font-weight: $ff-light;
+    letter-spacing: .1rem;
+    color: $gray;
+  }
+    
+  &:-ms-input-placeholder {
+    font-size: .85rem;
+    font-family: $ff;
+    font-weight: $ff-light;
+    letter-spacing: .1rem;
+    color: $gray;
+  }
+    
+  &::-ms-input-placeholder {
+    font-size: .85rem;
+    font-family: $ff;
+    font-weight: $ff-light;
+    letter-spacing: .1rem;
+    color: $gray;
+  }
+    
+  &::placeholder {
+    font-size: .85rem;
+    font-family: $ff;
+    font-weight: $ff-light;
+    letter-spacing: .1rem;
+    color: $gray;
+  }
+}
+.bkg-image {
+  width: 100%;
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1472289065668-ce650ac443d2?auto=format&fit=crop&w=3300&q=80&ixid=dW5zcGxhc2guY29tOzs7Ozs%3D') no-repeat center;
+  background-size: cover;
+}
+.logo-img {
+  width: 30vh;
+  margin-bottom: 12.5rem;
+}
+    
+/* Animations */
+@-webkit-keyframes bounceLeft {
+  0% { -webkit-transform: translate3d(100%, -50%, 0); transform: translate3d(100%, -50%, 0); }
+  50% { -webkit-transform: translate3d(-30px, -50%, 0); transform: translate3d(-30px, -50%, 0); }
+  100% { -webkit-transform: translate3d(0, -50%, 0); transform: translate3d(0, -50%, 0); }
+}
+@keyframes bounceLeft {
+  0% { -webkit-transform: translate3d(100%, -50%, 0); transform: translate3d(100%, -50%, 0); }
+  50% { -webkit-transform: translate3d(-30px, -50%, 0); transform: translate3d(-30px, -50%, 0); }
+  100% { -webkit-transform: translate3d(0, -50%, 0); transform: translate3d(0, -50%, 0); }
+}
+  
+@-webkit-keyframes bounceRight {
+  0% { -webkit-transform: translate3d(0, -50%, 0); transform: translate3d(0, -50%, 0); }
+  50% { -webkit-transform: translate3d(calc(100% + 30px), -50%, 0); transform: translate3d(calc(100% + 30px), -50%, 0); }
+  100% { -webkit-transform: translate3d(100%, -50%, 0); transform: translate3d(100%, -50%, 0); }
+}
+  
+@keyframes bounceRight {
+  0% { -webkit-transform: translate3d(0, -50%, 0); transform: translate3d(0, -50%, 0); }
+  50% { -webkit-transform: translate3d(calc(100% + 30px), -50%, 0); transform: translate3d(calc(100% + 30px), -50%, 0); }
+  100% { -webkit-transform: translate3d(100%, -50%, 0); transform: translate3d(100%, -50%, 0); }
+}
+
+
+/* Page background */
+.user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  
+  
+  &_options-container {
+    position: relative;
+    width: 80%;
+  }
+  
+  &_options-text {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    width: 100%;
+    background-color: $smoky-black;
+    border-radius: $bdrds;
+  }
+}
+
+
+/* Registered and Unregistered user box and text */
+.user_options-registered,
+.user_options-unregistered {
+  width: 50%;
+  padding: 75px 45px;
+  
+  color: $white;
+  font-weight: $ff-light;
+}
+    
+.user_registered-title,
+.user_unregistered-title {
+  margin-bottom: 15px;
+  font-size: 1.66rem;
+  line-height: 1em;
+}
+  
+.user_unregistered-text,
+.user_registered-text {
+  font-size: .83rem;
+  line-height: 1.4em;
+}
+  
+.user_registered-login,
+.user_unregistered-signup {
+  margin-top: 30px;
+  border: 1px solid $gray;
+  border-radius: $bdrds;
+  padding: 10px 30px;
+  
+  color: $white;
+  text-transform: uppercase;
+  line-height: 1em;
+  letter-spacing: .2rem;
+  
+  -webkit-transition: background-color .2s ease-in-out, color .2s ease-in-out;
+  
+  -o-transition: background-color .2s ease-in-out, color .2s ease-in-out;
+  
+  transition: background-color .2s ease-in-out, color .2s ease-in-out;
+  
+  &:hover {
+    color: $smoky-black;
+    background-color: $gray;
+  }
+}
+
+
+/* Login and signup forms */
+.user_options-forms {
+  position: absolute;
+  top: 50%;
+  left: 30px;
+  
+  width: calc(50% - 30px);
+  min-height: 419px;
+  background-color: $white;
+  border-radius: $bdrds;
+  -webkit-box-shadow: 2px 0 15px rgba($black, .25);
+          box-shadow: 2px 0 15px rgba($black, .25);
+  overflow: hidden;
+  
+  -webkit-transition: -webkit-transform .4s ease-in-out;
+  
+  transition: -webkit-transform .4s ease-in-out;
+  
+  -o-transition: transform .4s ease-in-out;
+  
+  transition: transform .4s ease-in-out;
+  
+  transition: transform .4s ease-in-out, -webkit-transform .4s ease-in-out;
+  -webkit-transform: translate3d(100%, -50%, 0);
+          transform: translate3d(100%, -50%, 0);
+  
+  .user_forms-login {
+    -webkit-transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+    -o-transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out;
+  }
+  
+  .forms {
+    &_title {
+      margin-bottom: 45px;
+
+      font-size: 1.5rem;
+      font-weight: $ff-medium;
+      line-height: 1em;
+      text-transform: uppercase;
+      color: $black;
+      letter-spacing: .1rem;
+    }
+        
+    &_field {
+      &:not(:last-of-type) {
+        margin-bottom: 20px;
+      }
+    }
+    
+    &_field-input {
+      width: 100%;
+      border-bottom: 1px solid $gray;
+      padding: 6px 20px 6px 0;
+      
+      font-family: $ff;
+      font-size: 1rem;
+      font-weight: $ff-light;
+      color: darken(#000, 30%);
+      letter-spacing: .1rem;
+      
+      -webkit-transition: border-color .2s ease-in-out;
+      
+      -o-transition: border-color .2s ease-in-out;
+      
+      transition: border-color .2s ease-in-out;
+      
+      &:focus {
+        border-color: darken($gray, 30%);
+      }
+    }
+      
+    &_buttons {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-pack: justify;
+          -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+      
+      margin-top: 35px;
+      
+      &-forgot {
+        font-family: $ff;
+        letter-spacing: .1rem;
+        color: #000;
+        font-size: 0.9rem;
+        
+        -webkit-transition: color .2s ease-in-out;
+        
+        -o-transition: color .2s ease-in-out;
+        
+        transition: color .2s ease-in-out;
+        
+        &:hover {
+          color: darken($gray, 10%);
+        }
+      }
+      
+      &-action {
+        background-color: $green;
+        border-radius: $bdrds;
+        padding: 10px 35px;
+        
+        font-size: 1rem;
+        font-family: $ff;
+        font-weight: $ff-light;
+        color: $white;
+        text-transform: uppercase;
+        letter-spacing: .1rem;
+          
+        -webkit-transition: background-color .2s ease-in-out;
+          
+        -o-transition: background-color .2s ease-in-out;
+          
+        transition: background-color .2s ease-in-out;
+          
+        &:hover {
+          background-color: lighten($salmon, 10%);
+        }
+      }
+    }
+  }
+      
+  .user_forms-signup,
+  .user_forms-login {
+    position: absolute;
+    left: 40px;
+    
+    width: calc(100% - 80px);
+    
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity .4s ease-in-out, visibility .4s ease-in-out, -webkit-transform .5s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, -webkit-transform .5s ease-in-out;
+    -o-transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out;
+    transition: opacity .4s ease-in-out, visibility .4s ease-in-out, transform .5s ease-in-out, -webkit-transform .5s ease-in-out;
+  }
+    
+  .user_forms-signup {
+    -webkit-transform: translate3d(120px, 0, 0);
+            transform: translate3d(120px, 0, 0);
+    
+    .forms_buttons {
+      -webkit-box-pack: end;
+          -ms-flex-pack: end;
+              justify-content: flex-end;
+    }
+  }
+      
+  .user_forms-login {
+    -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+
+/* Triggers */
+.user_options-forms {
+  &.signup-click {
+    -webkit-animation: bounceLeft 1s forwards;
+            animation: bounceLeft 1s forwards;
+    
+    .user_forms-signup {
+      opacity: 1;
+      visibility: visible;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+      
+    .user_forms-login {
+      opacity: 0;
+      visibility: hidden;
+      -webkit-transform: translate3d(-120px, 0, 0);
+              transform: translate3d(-120px, 0, 0);
+    }
+  }
+      
+  &.login-click {
+    -webkit-animation: bounceRight 1s forwards;
+            animation: bounceRight 1s forwards;
+    
+    .user_forms-signup {
+      opacity: 0;
+      visibility: hidden;
+    }
+      
+    .user_forms-login {
+      opacity: 1;
+      visibility: visible;
+      -webkit-transform: translate3d(0, 0, 0);
+              transform: translate3d(0, 0, 0);
+    }
+  }
+}

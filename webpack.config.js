@@ -51,7 +51,8 @@ module.exports = {
     ]
   },
   resolve: {
-    extensions: ['.jsx', '.js', 'png']
+    modules: ['node_modules', 'client'],
+    extensions: ['.jsx', '.js', 'png', '.scss']
   },
   node: {
     dns: 'mock',
