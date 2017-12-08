@@ -20,16 +20,31 @@
   <main id="app"></main>
   <script type="text/javascript" src="/bundle.js"></script>
   <script>
-    const trigger = document.querySelector('.trigger');
-    const sidebar = document.querySelector('.side-nav');
-    if (trigger) {
-      trigger.addEventListener('click', () => {
-        sidebar.classList.toggle('show');
-          trigger.classList.toggle('move-trigger');
-      });
-    }
-</script>
-Hello Im here
+      const trigger = document.querySelector('.trigger');
+      const sidebar = document.querySelector('.side-nav');
+      if (trigger) {
+        trigger.addEventListener('click', () => {
+          sidebar.classList.toggle('show');
+            trigger.classList.toggle('move-trigger');
+        });
+      }
+  </script>
+   <script>
+        // Variables
+      const signupButton = document.getElementById('signup-button');
+      const loginButton = document.getElementById('login-button');
+      const userForms = document.getElementById('user_options-forms');
+      // Add event listener to the "Sign Up" button
+      signupButton.addEventListener('click', () => {
+        userForms.classList.remove('login-click')
+        userForms.classList.add('signup-click')
+      }, false)
+      // Add event listener to the "Login" button
+      loginButton.addEventListener('click', () => {
+        userForms.classList.remove('signup-click')
+        userForms.classList.add('login-click')
+      }, false)
+  </script> 
 </body>
 
 </html>

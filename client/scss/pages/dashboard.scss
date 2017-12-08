@@ -1,0 +1,49 @@
+
+.nav-style {
+    background: transparent;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 0.1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 2rem;
+    color: #fff;
+      >a {
+        background: transparent;
+        margin-top: 3rem;
+        color: #fff;
+    }
+    
+}
+.nav-button {
+  background: transparent;
+  margin-top: 3rem !important;
+  color: #fff !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30vw;
+  > a {
+    color: #fff;
+  }
+}
+
+.dashboard {
+  height: 100vh;
+  background: url('http://res.cloudinary.com/dcpfdxsly/image/upload/v1512663299/ideabox_background_1_sm52t2.png');
+}
+.img-logo{
+  width: 15vw;
+  margin-top: 1rem;
+  height: 7vh;
+}
+.group-list {
+    margin: 8rem;
+    height: 70vh;
+    overflow: scroll;
+    padding: 1.2rem;
+}
+  .material-icons {
+        font-size: 35px !important;
+  }
