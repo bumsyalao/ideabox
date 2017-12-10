@@ -39,6 +39,7 @@ if (env === 'development') {
   }));
   app.use(webpackHotMiddleware(compiler));
 }
+app.use(express.static(path.join(__dirname, '../client')));
 
 route(app);
 
@@ -49,13 +50,9 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, '../client', 'index.html'));
 });
 
-app.use(express.static(path.join(__dirname, '../client')));
-
-
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 
 app.set('port', PORT);
-
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}!`);
