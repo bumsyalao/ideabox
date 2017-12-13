@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import ideaboxlogo from '../../client/images/idea logo.png';
-import { logoutRequest } from '../actions/authAction';
+import { logoutRequest } from '../actions/userAction';
 
 /**
  *
@@ -21,15 +21,7 @@ class NavigationBar extends Component {
     super(props);
     this.logout = this.logout.bind(this);
   }
-  /**
-   *
-   *
-   * @return {void}
-   * @memberOf NavigationBar
-   */
-  // ComponentDidMount() {
-  //   $('.button-collapse').sideNav();
-  // }
+
   /**
    * Logout Function
    * Prevent default action of event
@@ -67,26 +59,26 @@ class NavigationBar extends Component {
               </div>
               <img className="img-logo" src={ideaboxlogo} />
               <a href="#!name">
-                <span className="black-text name">John Doe</span>
+                <span className="black-text name">{this.props.access.username}</span>
               </a>
               <a href="#!email">
-                <span className="black-text email">jdandturk@gmail.com</span>
+                <span className="black-text email">{this.props.access.email}</span>
               </a>
             </div>
           </li>
           <li>
-            <a href="#!">
+            <Link to="/dashboard/user-update" href="#!">
               <i className="material-icons">person_outline</i>Edit Profile
-            </a>
+            </Link>
           </li>
           <li>
             <div className="divider" />
           </li>
           <li>
-            <a className="waves-effect" href="#!">
+            <Link to="/dashboard/my-ideas" className="waves-effect" href="#!">
               <i className="material-icons">lightbulb_outline</i>
               My Ideas
-            </a>
+            </Link>
           </li>
         </ul>
         <a
@@ -101,6 +93,16 @@ class NavigationBar extends Component {
         </a>
         <div className="nav-items">
           <Link
+            to="/dashboard/idea-list"
+            href="#"
+            className="tooltipped"
+            data-position="bottom"
+            data-delay="50"
+            data-tooltip="Home"
+          >
+            <i className="material-icons">home</i>
+          </Link>
+          <Link
             to="/dashboard/create-idea"
             href="#"
             className="tooltipped"
@@ -110,7 +112,8 @@ class NavigationBar extends Component {
           >
             <i className="material-icons">add_circle_outline</i>
           </Link>
-          <a
+          <Link
+            to="/dashboard/search-idea"
             href="#"
             className="tooltipped"
             data-position="bottom"
@@ -118,7 +121,7 @@ class NavigationBar extends Component {
             data-tooltip="Search Ideas"
           >
             <i className="material-icons">search</i>
-          </a>
+          </Link>
           <a
             href="#"
             onClick={this.logout}

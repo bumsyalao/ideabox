@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import 'react-mde/lib/styles/css/react-mde-all.css';
 import * as Showdown from 'showdown';
+
+import { deleteIdea } from '../../actions/ideaAction';
 
 /**
  *
@@ -8,7 +12,8 @@ import * as Showdown from 'showdown';
  * @class IdeaCard
  * @extends {Component}
  */
-class IdeaCard extends Component {
+class UserIdeaCard extends Component {
+
   /**
    * Creates an instance of IdeaCard.
    * @param {any} props
@@ -17,6 +22,19 @@ class IdeaCard extends Component {
    */
   constructor(props) {
     super(props);
+    this.onDelete = this.onDelete.bind(this);
+  }
+
+  /**
+   *
+   *
+   * @return {void}
+   * @memberOf IdeaCard
+   */
+  onDelete() {
+    const ideaId = this.props.id;
+    this.props.deleteIdea(ideaId);
+    $('.tooltipped').tooltip('remove');
   }
   /**
    *
@@ -28,9 +46,8 @@ class IdeaCard extends Component {
   render() {
     $(document).ready(() => {
       $('.tooltipped').tooltip({ delay: 50 });
-      $('.modal').modal();
     });
-    const { title, description, category, authorName } = this.props;
+    const { title, description, category, authorName, modified, access, id } = this.props;
     const converter = new Showdown.Converter();
     const mdDescription = converter.makeHtml(description);
     return (
@@ -41,52 +58,35 @@ class IdeaCard extends Component {
             <i className="material-icons right">more_vert</i>
           </span>
           <p> By: {authorName} </p>
+          <p className="right">{ modified && 'Edited' }</p>
           <div className="category-text">{category}</div>
+          <p>access type: {access}</p>
         </div>
         <div className="card-action">
           <ul className="card-icons">
             <li>
-              <a>
+              <Link to={`/dashboard/edit/${id}`}>
                 <i
                   className="tiny material-icons icon-btn tooltipped"
                   data-position="bottom"
                   data-delay="50"
-                  data-tooltip="get link"
+                  data-tooltip="edit"
                 >
-                  insert_link
+                  edit
                 </i>
-              </a>
+              </Link>
             </li>
             <li>
-              <a className="modal-trigger">
+              <a
+                onClick={this.onDelete}
+              >
                 <i
-                  className="tiny material-icons icon-btn tooltipped"
+                  className="tiny material-icons icon-btn tooltipped delete-btn"
                   data-position="bottom"
                   data-delay="50"
-                  data-tooltip="comment"
+                  data-tooltip="delete"
                 >
-                  insert_comment
-                </i>
-              </a>
-              <div id="modal1" className="modal">
-                <div className="modal-content">
-                  <h4>Modal Header</h4>
-                  <p>A bunch of text</p>
-                </div>
-                <div className="modal-footer">
-                  <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
-                </div>
-              </div>
-            </li>
-            <li>
-              <a>
-                <i
-                  className="tiny material-icons icon-btn tooltipped"
-                  data-position="bottom"
-                  data-delay="50"
-                  data-tooltip="post to twitter"
-                >
-                  share
+                  delete
                 </i>
               </a>
             </li>
@@ -103,4 +103,4 @@ class IdeaCard extends Component {
   }
 }
 
-export default IdeaCard;
+export default connect(null, { deleteIdea })(UserIdeaCard);

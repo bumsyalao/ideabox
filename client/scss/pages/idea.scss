@@ -1,19 +1,79 @@
-.idea-list {
-    background-color: #fff;
-    margin: auto;
-    margin-top: 100px;
-    padding: 3rem;
-    max-width: 500px;
+$mde-preview-font-size:             14px !default;
+$mde-button-color:                  #767676 !default;
+$mde-border-color:                  rgba(0,0,0,.15) !default; // this defaults to the Bootstrap 4 default border color
+$mde-textarea-min-height:           200px !default;
+$mde-textarea-padding:              0.5rem !default;
+$mde-textarea-border-radius:       .25rem !default;
+$mde-preview-margin-top:            8px !default;
+$mde-preview-horizontal-padding:    10px !default;
+$mde-preview-vertical-padding:      10px !default;
+$mde-help-color:                    rgba(0,0,0,.15) !default;
 
-    @media (max-width: 768px) {
-      margin: 100px 2rem 0;
-    }
+
+.create-idea {
+  background-color: #fff;
+  margin: auto;
+  margin-top: 100px;
+  padding: 3rem;
+  max-width: 800px;
+  width: 100%;
+
+  @media (max-width: 768px) {
+    margin: 100px 2rem 0;
+  }
 }
-  .form-margin {
-    margin-top: 2rem;
-  }
 
-  .close-btn {
-    margin-top: -2.9rem !important;
-    margin-right: -1.8rem !important;
+
+.close-btn {
+  margin-top: -2.9rem !important;
+  margin-right: -1.8rem !important;
+}
+
+.grid {
+  margin: auto;
+  margin-top: 100px;
+  padding: 3rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+  .grid-item {
+    width: calc((100% - (30px * 2))/3);
+
+    @media screen and (max-width: 992px) {
+      width: calc((100% - (30px * 1))/2);
+    }
+    @media screen and (max-width: 676px) {
+      width: 100%;
+    }
   }
+}
+
+.card-icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.icon-btn {
+  font-size: 20px !important;
+  cursor: pointer !important;
+}
+
+.card {
+  .card-action {
+    padding: 0px 0px !important;
+  }
+}
+
+.category-text {
+  margin-top: 2rem;
+  color: blue;
+  font-size: 16px;
+}
+
+.delete-btn {
+  cursor: pointer !important;
+}

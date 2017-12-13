@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import ReactMde, { ReactMdeCommands } from 'react-mde';
 import 'react-mde/lib/styles/css/react-mde-all.css';
-import { createIdea } from '../../actions/ideaAction';
-
+import { editIdea, getUserIdeas, getIdea } from '../../actions/ideaAction';
 
 /**
  *
@@ -12,7 +11,7 @@ import { createIdea } from '../../actions/ideaAction';
  * @class CreateIdea
  * @extends {Component}
  */
-class CreateIdea extends Component {
+class EditIdea extends Component {
   /**
    * Creates an instance of CreateIdea.
    * @param {any} props
@@ -22,16 +21,46 @@ class CreateIdea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      description: '',
-      category: '',
-      access: ''
+      title: this.props.idea.title,
+      description: this.props.idea.description,
+      category: this.props.idea.category,
+      access: this.props.idea.access
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
-    this.handleValueChange = this.handleValueChange.bind(this);
   }
 
+/**
+ *
+ *
+ * @return {void}
+ * @memberOf CreateIdea
+ */
+  componentWillMount() {
+    const ideaId = this.props.match.params.ideaId;
+    const foundIdea = this.props.ideas.find(idea => idea._id == ideaId);
+    const { title, description, category } = foundIdea;
+    this.setState({
+      title,
+      description,
+      category
+    });
+  }
+/**
+ *
+ *
+ * @param {any} nextProps
+ * @return {void}
+ * @memberOf CreateIdea
+ */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      title: nextProps.idea.title,
+      description: nextProps.idea.description,
+      category: nextProps.idea.category,
+      access: nextProps.idea.access
+    });
+  }
   /**
    *
    *
@@ -42,8 +71,6 @@ class CreateIdea extends Component {
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
-
-
   /**
    *
    * @param {object} value
@@ -53,7 +80,6 @@ class CreateIdea extends Component {
   handleValueChange = (value) => {
     this.setState({ description: value });
   }
-
   /**
    * Makes a call to create new Idea
    * @param {object} event
@@ -62,6 +88,7 @@ class CreateIdea extends Component {
    */
   onSubmit(event) {
     event.preventDefault();
+    const { ideaId } = this.props.match.params;
     const accessType = $('#switch-btn').is(':checked') ? 'public' : 'private';
     const descriptionMde = this.state.description.text;
     const newIdea = {
@@ -70,9 +97,10 @@ class CreateIdea extends Component {
       category: this.state.category,
       access: accessType
     };
-    this.props.createIdea(newIdea)
+    this.props.editIdea(newIdea, ideaId)
       .then(() => {
-        Materialize.toast('Your Idea has been created', 5000, 'green');
+        Materialize.toast('Your Idea has been updated', 5000, 'green');
+        this.props.history.push('/dashboard/my-ideas');
       }).catch((err) => {
         Materialize.toast(err.response.data.message, 5000, 'red');
       });
@@ -84,7 +112,7 @@ class CreateIdea extends Component {
    * @memberOf CreateIdea
    */
   render() {
-    $(document).ready(function() {
+    $(document).ready(() => {
       $('select').material_select();
       $('#switch-btn').prop('checked');
       $('.tooltipped').tooltip({ delay: 50 });
@@ -93,20 +121,10 @@ class CreateIdea extends Component {
     return (
       <div className="create-idea">
         <div className="row">
-          <Link
-            to="/dashboard/idea-list"
-            className="btn tooltipped btn-floating btn-large waves-effect waves-light red close-btn right"
-            data-position="bottom"
-            data-delay="50"
-            data-tooltip="close"
-          >
-            <i
-              className="material-icons"
-            >close</i></Link>
-          <h4> Write down that Idea! </h4>
+          <h4> {this.props.idea.title} </h4>
           <form className="col s12 form-margin">
             <div className="row">
-              <div className="input-field col s12 inline">
+              <div className="input-field col s12">
                 <input
                   id="title"
                   value={this.state.title}
@@ -114,7 +132,6 @@ class CreateIdea extends Component {
                   type="text"
                   className="validate"
                 />
-                <label htmlFor="Title">Title</label>
               </div>
             </div>
             <div className="input-field col s12">
@@ -161,7 +178,6 @@ class CreateIdea extends Component {
                 onChange={this.handleValueChange}
                 commands={ReactMdeCommands.getDefaultCommands()}
               />
-              <label htmlFor="textarea1">Description</label>
             </div>
             <div className="switch">
               <label>
@@ -175,7 +191,7 @@ class CreateIdea extends Component {
             <button
               className="waves-effect waves-light btn right"
               onClick={this.onSubmit}
-            >Create Idea</button>
+            >Save Idea</button>
           </form>
         </div>
       </div>
@@ -184,6 +200,10 @@ class CreateIdea extends Component {
 }
 const mapStateToProps = state => ({
   user: state.access.user,
+  ideas: state.ideas.ideas,
+  idea: state.ideas.idea,
+
 });
 
-export default connect(mapStateToProps, { createIdea })(withRouter(CreateIdea));
+export default connect(mapStateToProps, { editIdea, getUserIdeas, getIdea })(
+  withRouter(EditIdea));

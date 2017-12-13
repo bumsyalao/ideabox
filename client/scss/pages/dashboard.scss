@@ -27,8 +27,10 @@
 }
 
 .dashboard {
-  height: 100vh;
-  background: url('http://res.cloudinary.com/dcpfdxsly/image/upload/v1512663299/ideabox_background_1_sm52t2.png');
+  min-height: 100vh;
+  background-image: url('http://res.cloudinary.com/dcpfdxsly/image/upload/v1512663299/ideabox_background_1_sm52t2.png');
+  background-attachment: fixed;
+  background-size: cover;
 }
 .img-logo{
   width: 15vw;

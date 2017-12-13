@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt from 'jsonwebtoken';
+import 'react-mde/lib/styles/css/react-mde-all.css';
 import attachAuthToken from './utils/attachAuthToken';
 import store from '../client/store/configureStore';
 import { LOGGEDIN_USER } from './actions/types';

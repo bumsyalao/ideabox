@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import IdeaCard from './IdeaCard';
-import { getPublicIdeas } from '../../actions/ideaAction';
+import UserIdeaCard from './UserIdeaCard';
+import { getUserIdeas } from '../../actions/ideaAction';
 
 /**
  *
@@ -27,7 +27,7 @@ class IdeaList extends Component {
    * @memberOf IdeaList
    */
   componentWillMount() {
-    this.props.getPublicIdeas().catch();
+    this.props.getUserIdeas().catch();
   }
 
   /**
@@ -41,7 +41,7 @@ class IdeaList extends Component {
     return (
       <div className="idea-list grid">
         {this.props.ideas.map(idea => (
-          <IdeaCard
+          <UserIdeaCard
             key={idea._id}
             id={idea._id}
             title={idea.title}
@@ -49,6 +49,7 @@ class IdeaList extends Component {
             category={idea.category}
             authorName={idea.authorName}
             access={idea.access}
+            modified={idea.modified}
           />
         ))}
       </div>
@@ -58,4 +59,4 @@ class IdeaList extends Component {
 const mapStateToProps = state => ({
   ideas: state.ideas.ideas
 });
-export default connect(mapStateToProps, { getPublicIdeas })(IdeaList);
+export default connect(mapStateToProps, { getUserIdeas })(IdeaList);

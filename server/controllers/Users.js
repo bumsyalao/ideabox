@@ -151,23 +151,14 @@ class Users {
    */
   updateProfile(req, res) {
     User.findOne({ _id: req.decoded.id })
-      .then((foundUser) => {
-        if (!foundUser) {
-          return res.status(404).send({
-            success: false,
-            error: 'Not found',
-            message: 'User does not exist'
-          });
-        }
+      .then((updatedUser) => {
         if (
           req.body.username.trim() &&
-          req.body.email.trim() &&
-          req.body.password.trim()
+          req.body.email.trim()
         ) {
-          foundUser.username = req.body.username;
-          foundUser.email = req.body.email;
-          foundUser.password = req.body.password;
-          foundUser.save((err) => {
+          updatedUser.username = req.body.username;
+          updatedUser.email = req.body.email;
+          updatedUser.save((err) => {
             if (err) {
               return res.status(400).send({
                 success: false,
@@ -175,6 +166,11 @@ class Users {
                 message: 'There was an error while updating your Profile'
               });
             }
+            const foundUser = {
+              id: updatedUser._id,
+              username: updatedUser.username,
+              email: updatedUser.email
+            };
             return res.status(200).send({
               success: true,
               message: 'Your profile has been updated succesfully',
@@ -257,13 +253,6 @@ class Users {
   updatePassword(req, res) {
     return User.findOne({ hash: req.params.hash })
       .then((user) => {
-        if (user === null) {
-          return res.status(404).send({
-            success: false,
-            message: 'User does not exist'
-          });
-        }
-
         if (
           req.body.newPassword &&
           req.body.confirmPassword &&
@@ -303,6 +292,29 @@ class Users {
         success: false,
         message: error.message
       }));
+  }
+
+  /**
+   * View a User
+   * Route: GET: /api/v1/user/profile
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   * @memberOf Users
+   */
+  viewUser(req, res) {
+    User.findOne({ username: req.decoded.username }).exec()
+    .then((foundUser) => {
+      return res.status(200).send({
+        success: true,
+        message: 'found User',
+        foundUser
+      });
+    }).catch(() => res.status(401).send({
+      success: false,
+      error: 'invalid user',
+      message: 'User not authorized'
+    }));
   }
 }
 
