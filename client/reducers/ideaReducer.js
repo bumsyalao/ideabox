@@ -2,6 +2,7 @@ import * as types from '../actions/types';
 
 const initialState = {
   ideas: [],
+  myIdeas: [],
   idea: {},
   foundIdeas: [],
   pagination: {}
@@ -23,7 +24,7 @@ export default (state = initialState, action = {}) => {
     case types.LIST_USER_IDEAS:
       return {
         ...state,
-        ideas: action.foundIdeas
+        myIdeas: action.foundIdeas
       };
     case types.GET_IDEA:
       return {

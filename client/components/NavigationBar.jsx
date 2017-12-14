@@ -5,14 +5,15 @@ import ideaboxlogo from '../../client/images/idea logo.png';
 import { logoutRequest } from '../actions/userAction';
 
 /**
- *
+ * NavigationBar component
  *
  * @class NavigationBar
  * @extends {Component}
  */
 class NavigationBar extends Component {
   /**
-   * Creates an instance of Dashboard.
+   * Creates an instance of NavigationBar.
+   * Binds clsss methods
    * @param {object} props
    * @return {void}
    * @memberOf Dashboard

@@ -6,6 +6,7 @@ import Dashboard from './components/Dashboard';
 import ViewIdea from './components/Ideas/ViewIdea';
 import ForgotPassword from './components/User/ForgotPassword';
 import ResetPassword from './components/User/ResetPassword';
+import PageNotFound from './components/PageNotFound';
 
 const Routes = () => (
   <Switch>
@@ -15,6 +16,7 @@ const Routes = () => (
     <Route path="/dashboard/view/:ideaId" component={ViewIdea} />
     <Route path="/forgot-password" component={ForgotPassword} />
     <Route path="/update-password/:hash" component={ResetPassword} />
+    <Route component={PageNotFound} />
   </Switch>
   );
 

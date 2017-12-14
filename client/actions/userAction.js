@@ -92,7 +92,10 @@ export const logoutRequest = () => (dispatch) => {
   attachAuthToken(false);
   return dispatch(logoutSuccess());
 };
-
+/**
+ * api call to view user
+ * @return {object} returns userDetails message
+ */
 export const viewUser = () => dispatch =>
   axios
     .get('/api/v1/user/profile')
@@ -102,9 +105,15 @@ export const viewUser = () => dispatch =>
     .catch((error) => {
       throw error;
     });
-
+/**
+ * api call to forgotPasswordAction
+ * @return {void}
+ */
 export const forgotPasswordAction = email =>
   dispatch => axios.post('/api/v1/user/forgot-password', email);
-
+/**
+ * api call to forgotPasswordAction
+ * @return {void}
+ */
 export const resetPasswordAction = ({ hash, password }) =>
     dispatch => axios(`/api/v1/user/update/${hash}`, password);

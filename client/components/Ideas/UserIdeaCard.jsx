@@ -6,18 +6,16 @@ import * as Showdown from 'showdown';
 import { deleteIdea } from '../../actions/ideaAction';
 
 /**
- *
- *
- * @class IdeaCard
+ * User Idea card component
+ * @class UserIdeaCard
  * @extends {Component}
  */
 class UserIdeaCard extends Component {
-
   /**
-   * Creates an instance of IdeaCard.
+   * Creates an instance of UserIdeaCard.
    * @param {any} props
    * @return {void}
-   * @memberOf IdeaCard
+   * @memberOf UserIdeaCard
    */
   constructor(props) {
     super(props);
@@ -25,10 +23,10 @@ class UserIdeaCard extends Component {
   }
 
   /**
-   *
+   * Makes an action call to delete idea
    *
    * @return {void}
-   * @memberOf IdeaCard
+   * @memberOf UserIdeaCard
    */
   onDelete() {
     const ideaId = this.props.id;
@@ -36,17 +34,25 @@ class UserIdeaCard extends Component {
     $('.tooltipped').tooltip('remove');
   }
   /**
-   *
+   * Renders delete idea component
    *
    * @returns {void}
    *
-   * @memberOf IdeaCard
+   * @memberOf UserIdeaCard
    */
   render() {
     $(document).ready(() => {
       $('.tooltipped').tooltip({ delay: 50 });
     });
-    const { title, description, category, authorName, modified, access, id } = this.props;
+    const {
+      title,
+      description,
+      category,
+      authorName,
+      modified,
+      access,
+      id
+    } = this.props;
     const converter = new Showdown.Converter();
     const mdDescription = converter.makeHtml(description);
     return (
@@ -57,7 +63,7 @@ class UserIdeaCard extends Component {
             <i className="material-icons right">more_vert</i>
           </span>
           <p> By: {authorName} </p>
-          <p className="right">{ modified && 'Edited' }</p>
+          <p className="right">{modified && 'Edited'}</p>
           <div className="category-text">{category}</div>
           <p>access type: {access}</p>
         </div>
@@ -76,9 +82,7 @@ class UserIdeaCard extends Component {
               </Link>
             </li>
             <li>
-              <a
-                onClick={this.onDelete}
-              >
+              <a onClick={this.onDelete}>
                 <i
                   className="tiny material-icons icon-btn tooltipped delete-btn"
                   data-position="bottom"
@@ -95,7 +99,10 @@ class UserIdeaCard extends Component {
           <span className="card-title grey-text text-darken-4">
             <i className="material-icons right">close</i>
           </span>
-          <p dangerouslySetInnerHTML={{ __html: mdDescription }} className="truncate" />
+          <p
+            dangerouslySetInnerHTML={{ __html: mdDescription }}
+            className="truncate"
+          />
         </div>
       </div>
     );

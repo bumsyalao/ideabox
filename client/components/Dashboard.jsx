@@ -4,14 +4,14 @@ import { Route, Switch, withRouter } from 'react-router-dom';
 import NavigationBar from '../components/NavigationBar';
 import CreateIdea from '../components/Ideas/CreateIdea';
 import IdeaList from '../components/Ideas/IdeaList';
-import SearchIdea from '../components/Ideas/SearchIdea';
 import UserIdeaList from '../components/Ideas/UserIdeaList';
 import EditIdea from '../components/Ideas/EditIdea';
 import EditProfile from '../components/User/EditProfile';
 import ViewIdea from '../components/Ideas/ViewIdea';
+import PageNotFound from '../components/PageNotFound';
 
 /**
- *
+ * Dashboard Component
  *
  * @class Dashboard
  * @extends {Component}
@@ -33,7 +33,7 @@ class Dashboard extends Component {
   }
   /**
    *
-   *
+   * Renders Dashboard Component
    * @returns {void}
    *
    * @memberOf Dashboard
@@ -52,10 +52,6 @@ class Dashboard extends Component {
             component={IdeaList}
           />
           <Route
-            path={`${this.props.match.url}/search-idea`}
-            component={SearchIdea}
-          />
-          <Route
             path={`${this.props.match.url}/my-ideas`}
             component={UserIdeaList}
           />
@@ -71,6 +67,7 @@ class Dashboard extends Component {
             path={`${this.props.match.url}/view/:ideaId`}
             component={ViewIdea}
           />
+          <Route component={PageNotFound} />
         </Switch>
       </div>
     );

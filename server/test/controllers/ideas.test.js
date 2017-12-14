@@ -41,9 +41,7 @@ before((done) => {
         .send(valid3Idea)
         .end((err, res) => {
           if (!err) {
-            console.log('===============>res=========>', res.body);
             ideaId = res.body.newIdea._id;
-            console.log('===============>newId=========>', ideaId);
           }
         });
       }

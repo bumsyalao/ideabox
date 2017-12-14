@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { editProfile } from '../../actions/userAction';
 
 /**
- *
+ * Edit Profile component
  *
  * @class EditProfile
  * @extends {Component}
@@ -28,8 +28,7 @@ class EditProfile extends Component {
   }
 
   /**
-   *
-   *
+   * Sets state to nextprops
    * @param {any} nextProps
    * @return {void}
    * @memberOf EditProfile
@@ -46,7 +45,7 @@ class EditProfile extends Component {
    * @return {void}
    * @param {Object} event The event of the HTML component
    *
-   * @memberOf Register
+   * @memberOf Edit Profile
    */
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
@@ -73,7 +72,7 @@ class EditProfile extends Component {
   }
 
   /**
-   *
+   * Renders Edit profile component
    *
    * @returns {void}
    *

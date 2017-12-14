@@ -6,7 +6,7 @@ import { createIdea } from '../../actions/ideaAction';
 
 
 /**
- *
+ * Create Idea component
  *
  * @class CreateIdea
  * @extends {Component}
@@ -30,27 +30,23 @@ class CreateIdea extends Component {
     this.onSubmit = this.onSubmit.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
   }
-
   /**
-   *
-   *
-   * @param {object} event
-   * @return {void}
-   * @memberOf CreateIdea
-   */
-  onChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
-
-
-  /**
-   *
+   * Sets the event value to the state
    * @param {object} value
    * @return {void}
    * @memberOf CreateIdea
    */
   handleValueChange = (value) => {
     this.setState({ description: value });
+  }
+  /**
+   * Sets the event value to the state
+   * @param {object} event
+   * @return {void}
+   * @memberOf CreateIdea
+   */
+  onChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
 
   /**
@@ -77,7 +73,7 @@ class CreateIdea extends Component {
       });
   }
   /**
-   *
+   * renders create idea component
    * @returns {void}
    *
    * @memberOf CreateIdea
@@ -156,14 +152,10 @@ class CreateIdea extends Component {
                   name: 'description',
                 }}
                 id="description"
-                visibility={{
-                  preview: false
-                }}
                 value={this.state.description}
                 onChange={this.handleValueChange}
                 commands={ReactMdeCommands.getDefaultCommands()}
               />
-              <label htmlFor="textarea1">Description</label>
             </div>
             <div className="switch">
               <label>

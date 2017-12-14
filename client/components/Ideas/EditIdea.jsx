@@ -5,17 +5,17 @@ import ReactMde, { ReactMdeCommands } from 'react-mde';
 import { editIdea, getUserIdeas, getIdea } from '../../actions/ideaAction';
 
 /**
+ * Edit Idea Class
  *
- *
- * @class CreateIdea
+ * @class EditIdea
  * @extends {Component}
  */
 class EditIdea extends Component {
   /**
-   * Creates an instance of CreateIdea.
+   * Creates an instance of EditIdea.
    * @param {any} props
    *
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   constructor(props) {
     super(props);
@@ -31,22 +31,13 @@ class EditIdea extends Component {
   }
 
 /**
- *
+ * Makes a call to get Idea
  *
  * @return {void}
- * @memberOf CreateIdea
+ * @memberOf EditIdea
  */
   componentWillMount() {
     const ideaId = this.props.match.params.ideaId;
-    // this.props.getIdea(ideaId)
-    //   .then(() => {
-    //     this.setState({
-    //       title: this.props.idea.title,
-    //       description: this.props.idea.description,
-    //       category: this.props.idea.category,
-    //       access: this.props.idea.access
-    //     });
-    //   });
     const foundIdea = this.props.ideas.find(idea => idea._id == ideaId);
     const { title, description, category } = foundIdea;
     this.setState({
@@ -56,11 +47,10 @@ class EditIdea extends Component {
     });
   }
 /**
- *
- *
+ * Updates state if props are changed
  * @param {any} nextProps
  * @return {void}
- * @memberOf CreateIdea
+ * @memberOf EditIdea
  */
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -71,17 +61,16 @@ class EditIdea extends Component {
     });
   }
   /**
-   *
-   *
+   * Sets the event value to the state
    * @param {object} event
    * @return {void}
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
   /**
-   *
+   * Sets the event value to the state
    * @param {object} value
    * @return {void}
    * @memberOf CreateIdea
@@ -89,11 +78,12 @@ class EditIdea extends Component {
   handleValueChange = (value) => {
     this.setState({ description: value });
   }
+
   /**
    * Makes a call to edit Idea
    * @param {object} event
    * @return {void}
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   onSubmit(event) {
     event.preventDefault();
@@ -115,10 +105,10 @@ class EditIdea extends Component {
       });
   }
   /**
-   *
+   * Renders Edit Idea component
    * @returns {void}
    *
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   render() {
     $(document).ready(() => {

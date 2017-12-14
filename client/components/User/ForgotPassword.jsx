@@ -3,7 +3,18 @@ import { connect } from 'react-redux';
 import { forgotPasswordAction } from '../../actions/userAction';
 import ideaboxlogo from '../../images/idea logo.png';
 
+/**
+ * Forgot Password Component
+ * @class ForgotPassword
+ * @extends {Component}
+ */
 class ForgotPassword extends Component {
+  /**
+   * Creates an instance of ForgotPassword.
+   * @param {object} props
+   *
+   * @memberOf ForgotPassword
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -16,7 +27,7 @@ class ForgotPassword extends Component {
    *
    * Sets the event value to the state
    * @param {object} event
-   *
+   * @return {void}
    * @memberOf ForgotPassword
    */
   onChange(event) {
@@ -24,6 +35,13 @@ class ForgotPassword extends Component {
       [event.target.id]: event.target.value
     });
   }
+
+  /**
+   * Forgot Password method
+   * Makes an action call to to forgotPasswordAction
+   * @return {void}
+   * @memberOf ForgotPassword
+   */
   forgotPassword() {
     const email = this.state.email;
     this.props
@@ -37,12 +55,19 @@ class ForgotPassword extends Component {
       });
   }
 
+  /**
+   * Renders Forgot password component
+   *
+   * @returns {void} HTML component
+   *
+   * @memberOf ForgotPassword
+   */
   render() {
     return (
       <div className="bkg-image">
-      <img className="logo-img" src={ideaboxlogo} />
+        <img className="logo-img" src={ideaboxlogo} />
         <div className="col s12 container forgot-password">
-          <div className="input-field col s4 offset-s3">
+          <div className="input-field col s6 offset-s3">
             <i className="material-icons prefix">email</i>
             <input
               id="email"
@@ -58,7 +83,7 @@ class ForgotPassword extends Component {
               reset your password
             </label>
           </div>
-          <div className="input-field col s4 offset-s3">
+          <div className="input-field col s6 offset-s3">
             <button
               id="submit-forgotPassword"
               onClick={this.forgotPassword}

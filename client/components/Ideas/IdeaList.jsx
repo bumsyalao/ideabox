@@ -5,8 +5,7 @@ import IdeaCard from './IdeaCard';
 import { getPublicIdeas, searchIdeas } from '../../actions/ideaAction';
 
 /**
- *
- *
+ * Idea list component
  * @class IdeaList
  * @extends {Component}
  */
@@ -29,8 +28,7 @@ class IdeaList extends Component {
     this.onChange = this.onChange.bind(this);
   }
   /**
-   *
-   *
+   * Makes an action call to get Ideas
    * @return {void}
    * @memberOf IdeaList
    */
@@ -42,7 +40,7 @@ class IdeaList extends Component {
    * Update the state if the props are changed
    * @param {object} nextProps
    * @return {void}
-   * @memberOf UsersPage
+   * @memberOf IdeaList
    */
   componentWillReceiveProps(nextProps) {
     this.setState({
@@ -52,12 +50,12 @@ class IdeaList extends Component {
     });
   }
   /**
-   *
+   * Makes an action call to search for ideas
    *
    * @param {int} offset
    * @param {int} limit
    * @return {void}
-   * @memberOf SearchIdea
+   * @memberOf IdeaList
    */
   onSearch() {
     const limit = 9;
@@ -67,23 +65,30 @@ class IdeaList extends Component {
       limit,
       this.state.searchParam,
       this.state.category
-    );
+    )
+    .then(() => this.setState({
+      title: this.props.foundIdeas.title,
+      id: this.props.foundIdeas._id,
+      description: this.props.foundIdeas.description,
+      category: this.props.foundIdeas.category,
+      access: this.props.foundIdeas.access,
+      authorName: this.props.foundIdeas.authorName
+    }));
   }
   /**
-   *
-   *
+   * Sets the event value to the state
    * @param {object} event
    * @return {void}
-   * @memberOf CreateIdea
+   * @memberOf IdeaList
    */
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
   /**
-   * Pagination for list of users
+   * Pagination for list of ideas
    * @param {object} pageData
    * @return {void}
-   * @memberOf UsersPage
+   * @memberOf Ideas
    */
   handlePageClick(pageData) {
     const selected = pageData.selected;
@@ -94,8 +99,7 @@ class IdeaList extends Component {
   }
 
   /**
-   *
-   *
+   * Renders Idea list component
    * @returns {void}
    *
    * @memberOf IdeaList

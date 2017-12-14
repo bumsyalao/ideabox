@@ -5,7 +5,7 @@ import { loginRequest, registerRequest } from '../../actions/userAction';
 import ideaboxlogo from '../../images/idea logo.png';
 
 /**
- * Render Register Form
+ * Auth Component
  *
  * @class Register
  * @extends {Component}

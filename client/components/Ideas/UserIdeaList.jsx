@@ -4,38 +4,26 @@ import UserIdeaCard from './UserIdeaCard';
 import { getUserIdeas } from '../../actions/ideaAction';
 
 /**
- *
- *
- * @class IdeaList
+ * User Idea Component
+ * @class UserIdeaList
  * @extends {Component}
  */
 class IdeaList extends Component {
-  /**
-   * Creates an instance of IdeaList.
-   * @param {any} props
-   * @return {void}
-   * @memberOf IdeaList
-   */
-  constructor(props) {
-    super(props);
-  }
 
   /**
-   *
-   *
+   * Makes an action call to get user ideas
    * @return {void}
-   * @memberOf IdeaList
+   * @memberOf UserIdeaList
    */
   componentWillMount() {
     this.props.getUserIdeas().catch();
   }
 
   /**
-   *
-   *
+   * Renders User Idea list
    * @returns {void}
    *
-   * @memberOf IdeaList
+   * @memberOf UserIdeaList
    */
   render() {
     return (
@@ -57,6 +45,6 @@ class IdeaList extends Component {
   }
 }
 const mapStateToProps = state => ({
-  ideas: state.ideas.ideas
+  ideas: state.ideas.myIdeas
 });
 export default connect(mapStateToProps, { getUserIdeas })(IdeaList);

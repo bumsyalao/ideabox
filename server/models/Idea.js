@@ -1,7 +1,5 @@
 import mongoose from 'mongoose';
 
-const { Schema } = mongoose.Schema;
-
 
 const IdeaSchema = new mongoose.Schema({
   title: { type: String,

@@ -5,7 +5,7 @@ import { getIdea, addComment } from '../../actions/ideaAction';
 import twitterIcon from '../../images/twitter-icon.png';
 
 /**
- *
+ * View Idea Component
  *
  * @class ViewIdea
  * @extends {Component}
@@ -27,8 +27,7 @@ class ViewIdea extends Component {
   }
 
   /**
-   *
-   *
+   * Makes an action to get Idea
    * @return {void}
    * @memberOf ViewIdea
    */
@@ -39,8 +38,7 @@ class ViewIdea extends Component {
   }
 
   /**
-   *
-   *
+   * Sets the event value to the state
    * @param {object} event
    * @return {void}
    * @memberOf CreateIdea
@@ -50,7 +48,7 @@ class ViewIdea extends Component {
   }
 
   /**
-   *
+   * Makes an action call to add comment
    *
    * @param {any} event
    * @return {void}
@@ -69,7 +67,7 @@ class ViewIdea extends Component {
   }
 
   /**
-   *
+   * Renders View Idea component
    *
    * @return {void}
    * @memberOf ViewIdea

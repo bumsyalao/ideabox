@@ -4,7 +4,19 @@ import { withRouter } from 'react-router';
 import { resetPasswordAction } from '../../actions/userAction';
 import ideaboxlogo from '../../images/idea logo.png';
 
+/**
+ * Reset Password Component
+ *
+ * @class ResetPassword
+ * @extends {Component}
+ */
 class ResetPassword extends Component {
+  /**
+   * Creates an instance of ResetPassword.
+   * @param {any} props
+   *
+   * @memberOf ResetPassword
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -18,7 +30,7 @@ class ResetPassword extends Component {
    *
    * Sets the event value to the state
    * @param {Object} event The event of the HTML component
-   *
+   * @return {void}
    * @memberOf ResetPassword
    */
   onChange(event) {
@@ -27,12 +39,16 @@ class ResetPassword extends Component {
     });
   }
 
+  /**
+   * Function to reset password
+   * Makes an action call to reset password
+   * @return {void}
+   * @memberOf ResetPassword
+   */
   resetPassword() {
     const password = this.state.password;
     const pathname = this.props.location.pathname;
-    console.log(this.props.location.pathname);
     const hash = pathname.replace('/update-password/', '');
-    console.log(hash, 'hash====');
     if (this.state.confirmPassword !== this.state.password) {
       Materialize.toast('Password does not match', 5000, 'red');
     } else {
@@ -47,6 +63,14 @@ class ResetPassword extends Component {
         );
     }
   }
+
+  /**
+   * Renders Forgot Password Component
+   *
+   * @returns {void}
+   *
+   * @memberOf ResetPassword
+   */
   render() {
     return (
       <div className="bkg-image">

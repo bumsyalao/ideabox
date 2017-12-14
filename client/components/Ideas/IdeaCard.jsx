@@ -3,31 +3,15 @@ import { Link } from 'react-router-dom';
 import * as Showdown from 'showdown';
 
 /**
- *
+ * Idea card class
  *
  * @class IdeaCard
  * @extends {Component}
  */
 class IdeaCard extends Component {
+
   /**
-   * Creates an instance of IdeaCard.
-   * @param {any} props
-   * @return {void}
-   * @memberOf IdeaCard
-   */
-  constructor(props) {
-    super(props);
-  }
-  /**
-   *
-   *
-   * @returns {void}
-   *
-   * @memberOf IdeaCard
-   */
-  /**
-   *
-   *
+   * Renders Idea card class
    * @returns {void}
    *
    * @memberOf IdeaCard
