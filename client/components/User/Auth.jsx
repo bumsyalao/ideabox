@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 import { loginRequest, registerRequest } from '../../actions/userAction';
 import ideaboxlogo from '../../images/idea logo.png';
 
@@ -191,9 +191,9 @@ class Auth extends Component {
                     </div>
                   </fieldset>
                   <div className="forms_buttons">
-                    <button type="button" className="forms_buttons-forgot">
+                    <Link to="/forgot-password" type="button" className="forms_buttons-forgot">
                       Forgot password?
-                    </button>
+                    </Link>
                     <input
                       onClick={this.onLogin}
                       type="submit"

@@ -20,18 +20,17 @@ const CommentSchema = new mongoose.Schema({
   {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Idea',
-    required: 'Required'
   },
   createdAt: Date,
   updatedAt: Date
 });
 
-CommentSchema.methods.getAllComment = function (ideasId, err) {
-  if (err) {
-    return err.message;
-  }
-  return CommentSchema.find({ ideaId: ideasId });
-};
+// CommentSchema.methods.getAllComment = function (ideasId, err) {
+//   if (err) {
+//     return err.message;
+//   }
+//   return CommentSchema.find({ ideaId: ideasId });
+// };
 const Comment = mongoose.model('Comment', CommentSchema);
 
 export default Comment;

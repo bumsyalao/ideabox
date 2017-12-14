@@ -23,6 +23,7 @@ const IdeaSchema = new mongoose.Schema({
   category: { type: String, required: true, lowercase: true },
   access: { type: String, required: true },
   modified: { type: Boolean, default: false },
+  comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
   createdAt: Date,
   updatedAt: Date,
 });

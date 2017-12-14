@@ -28,7 +28,7 @@ module.exports = {
         loaders: 'babel-loader'
       },
       {
-        test: /\.scss$/,
+        test: /\.(scss|.css)$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           // resolve-url-loader may be chained before sass-loader if necessary

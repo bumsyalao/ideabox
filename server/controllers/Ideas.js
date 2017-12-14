@@ -100,12 +100,16 @@ class Ideas {
    * @memberOf Ideas
    */
   retrieveIdea(req, res) {
-    Idea.findOne({ _id: req.params.ideaId }).exec()
+    Idea.findOne({ _id: req.params.ideaId })
+    .populate('comments')
+    .exec()
       .then(foundIdea => res.status(200).send({
         success: true,
         message: 'Found Idea',
         foundIdea
-      })).catch(() => res.status(401).send({
+      }))
+
+      .catch(() => res.status(401).send({
         success: false,
         error: 'invalid Idea',
         message: 'Invalid Idea Id'
@@ -235,30 +239,25 @@ class Ideas {
 
   /**
    * Search Ideas
-   * Route: POST: /api/v1/ideas?limit=${limit}&offset=${offset}
+   * Route: GET: /api/v1/ideas?limit=${limit}&offset=${offset}
    * @param {any} req
    * @param {any} res
    * @return {void}
    * @memberOf Ideas
    */
   searchIdeas(req, res) {
-    if (!req.body.searchParam) {
-      res.status(400).send({
-        success: false,
-        message: 'please add search term'
-      });
-    }
     const offset = Number(req.query.offset);
     const limit = Number(req.query.limit);
     let count;
     Idea.count({
-      $text: { $search: req.body.searchParam.trim() },
-      category: req.body.category
+      $text: { $search: req.query.searchParam.toLowerCase() },
+      category: req.query.category.toLowerCase(),
+      access: 'public'
     }, (err, iscount) => {
       count = iscount;
       const promise = Idea.find({
-        $text: { $search: req.body.searchParam.trim() },
-        category: req.body.category
+        $text: { $search: req.query.searchParam.toLowerCase() },
+        category: req.query.category.toLowerCase()
       })
       .skip(offset)
       .limit(limit).exec();

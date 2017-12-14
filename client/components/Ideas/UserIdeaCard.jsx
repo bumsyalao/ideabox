@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import 'react-mde/lib/styles/css/react-mde-all.css';
 import * as Showdown from 'showdown';
 
 import { deleteIdea } from '../../actions/ideaAction';
@@ -96,7 +95,7 @@ class UserIdeaCard extends Component {
           <span className="card-title grey-text text-darken-4">
             <i className="material-icons right">close</i>
           </span>
-          <p dangerouslySetInnerHTML={{ __html: mdDescription }} />
+          <p dangerouslySetInnerHTML={{ __html: mdDescription }} className="truncate" />
         </div>
       </div>
     );

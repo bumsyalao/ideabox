@@ -8,6 +8,7 @@ import SearchIdea from '../components/Ideas/SearchIdea';
 import UserIdeaList from '../components/Ideas/UserIdeaList';
 import EditIdea from '../components/Ideas/EditIdea';
 import EditProfile from '../components/User/EditProfile';
+import ViewIdea from '../components/Ideas/ViewIdea';
 
 /**
  *
@@ -65,6 +66,10 @@ class Dashboard extends Component {
           <Route
             path={`${this.props.match.url}/user-update`}
             component={EditProfile}
+          />
+          <Route
+            path={`${this.props.match.url}/view/:ideaId`}
+            component={ViewIdea}
           />
         </Switch>
       </div>

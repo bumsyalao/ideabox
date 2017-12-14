@@ -245,7 +245,7 @@ class Users {
 
   /**
    * Update Password
-   * Route: POST: /api/v1/user/update-password/:hash
+   * Route: PUT: /api/v1/user/update-password/:hash
    * @param {object} req
    * @param {object} res
    *  @return {void}

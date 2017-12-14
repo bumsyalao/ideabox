@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import ReactMde, { ReactMdeCommands } from 'react-mde';
-import 'react-mde/lib/styles/css/react-mde-all.css';
 import { createIdea } from '../../actions/ideaAction';
 
 
@@ -150,13 +149,16 @@ class CreateIdea extends Component {
 
               </select>
             </div>
-            <div className="input-field col s12">
+            <div className="col s12">
               <ReactMde
                 textAreaProps={{
                   id: 'description',
                   name: 'description',
                 }}
                 id="description"
+                visibility={{
+                  preview: false
+                }}
                 value={this.state.description}
                 onChange={this.handleValueChange}
                 commands={ReactMdeCommands.getDefaultCommands()}

@@ -152,7 +152,7 @@ describe('Users', () => {
         .put('/api/v1/user/update', Users.updateProfile)
         .end((err, res) => {
           if (res) {
-            expect(res).to.have.status(401);
+            expect(res).to.have.status(404);
           }
           done();
         });

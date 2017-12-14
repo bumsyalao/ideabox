@@ -103,3 +103,8 @@ export const viewUser = () => dispatch =>
       throw error;
     });
 
+export const forgotPasswordAction = email =>
+  dispatch => axios.post('/api/v1/user/forgot-password', email);
+
+export const resetPasswordAction = ({ hash, password }) =>
+    dispatch => axios(`/api/v1/user/update/${hash}`, password);

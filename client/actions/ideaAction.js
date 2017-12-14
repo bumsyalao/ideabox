@@ -12,7 +12,7 @@ export const loadUserIdeas = foundIdeas => ({
   foundIdeas
 });
 
-export const loadFoundIdeas = ({ foundIdeas, metaData }) => ({
+export const loadSearchIdeas = (foundIdeas, metaData) => ({
   type: LIST_FOUND_IDEAS,
   foundIdeas,
   metaData
@@ -54,18 +54,11 @@ export const createIdea = newIdea => dispatch =>
     });
 
 
-export const getIdeas = (offset = 0, limit = 20, searchParam = '', category = '') => dispatch =>
+export const searchIdeas = (offset = 0, limit = 9, searchParam = '', category = '') => dispatch =>
   axios
-    .get(`/api/v1/ideas?limit=${limit}$offset=${offset}`, searchParam, category)
+    .get(`/api/v1/ideas/search?limit=${limit}&offset=${offset}&searchParam=${searchParam}&category=${category}`)
     .then((response) => {
-      if (!response.data.ideas.length > 0) {
-        Materialize.toast(
-          'Sorry, we could not find what you are looking for',
-          5000,
-          'red'
-        );
-      }
-      dispatch(loadFoundIdeas(response.data));
+      return dispatch(loadSearchIdeas(response.data.ideas, response.data.pageInfo));
     })
     .catch((error) => {
       throw error;
@@ -79,6 +72,18 @@ export const getIdea = ideaId => dispatch =>
       }).catch((error) => {
         throw error;
       });
+
+
+export const addComment = (ideaId, comment) => dispatch =>
+  axios
+    .post(`/api/v1/idea/${ideaId}/comment`, { comment })
+    .then(() => {
+      return dispatch(getIdea(ideaId));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
 
 export const editIdea = (newIdea, ideaId) => dispatch =>
   attachAuthToken(localStorage.getItem('token'))

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ReactMde, { ReactMdeCommands } from 'react-mde';
-import 'react-mde/lib/styles/css/react-mde-all.css';
 import { editIdea, getUserIdeas, getIdea } from '../../actions/ideaAction';
 
 /**
@@ -28,6 +27,7 @@ class EditIdea extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleValueChange = this.handleValueChange.bind(this);
   }
 
 /**
@@ -38,6 +38,15 @@ class EditIdea extends Component {
  */
   componentWillMount() {
     const ideaId = this.props.match.params.ideaId;
+    // this.props.getIdea(ideaId)
+    //   .then(() => {
+    //     this.setState({
+    //       title: this.props.idea.title,
+    //       description: this.props.idea.description,
+    //       category: this.props.idea.category,
+    //       access: this.props.idea.access
+    //     });
+    //   });
     const foundIdea = this.props.ideas.find(idea => idea._id == ideaId);
     const { title, description, category } = foundIdea;
     this.setState({
@@ -81,7 +90,7 @@ class EditIdea extends Component {
     this.setState({ description: value });
   }
   /**
-   * Makes a call to create new Idea
+   * Makes a call to edit Idea
    * @param {object} event
    * @return {void}
    * @memberOf CreateIdea
@@ -121,7 +130,7 @@ class EditIdea extends Component {
     return (
       <div className="create-idea">
         <div className="row">
-          <h4> {this.props.idea.title} </h4>
+          <h4> Edit Idea </h4>
           <form className="col s12 form-margin">
             <div className="row">
               <div className="input-field col s12">

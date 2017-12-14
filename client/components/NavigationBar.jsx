@@ -112,16 +112,6 @@ class NavigationBar extends Component {
           >
             <i className="material-icons">add_circle_outline</i>
           </Link>
-          <Link
-            to="/dashboard/search-idea"
-            href="#"
-            className="tooltipped"
-            data-position="bottom"
-            data-delay="50"
-            data-tooltip="Search Ideas"
-          >
-            <i className="material-icons">search</i>
-          </Link>
           <a
             href="#"
             onClick={this.logout}

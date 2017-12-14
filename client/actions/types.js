@@ -9,3 +9,5 @@ export const LIST_USER_IDEAS = 'LIST_USER_IDEAS';
 export const EDIT_USER_PROFILE = 'EDIT_USER_PROFILE';
 export const GET_USER = 'GET_USER';
 export const GET_IDEA = 'GET_IDEA';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';

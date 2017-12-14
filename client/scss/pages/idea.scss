@@ -1,14 +1,3 @@
-$mde-preview-font-size:             14px !default;
-$mde-button-color:                  #767676 !default;
-$mde-border-color:                  rgba(0,0,0,.15) !default; // this defaults to the Bootstrap 4 default border color
-$mde-textarea-min-height:           200px !default;
-$mde-textarea-padding:              0.5rem !default;
-$mde-textarea-border-radius:       .25rem !default;
-$mde-preview-margin-top:            8px !default;
-$mde-preview-horizontal-padding:    10px !default;
-$mde-preview-vertical-padding:      10px !default;
-$mde-help-color:                    rgba(0,0,0,.15) !default;
-
 
 .create-idea {
   background-color: #fff;
@@ -50,6 +39,9 @@ $mde-help-color:                    rgba(0,0,0,.15) !default;
     }
   }
 }
+.grid-margin {
+  margin-top: -50px !important;
+}
 
 .card-icons {
   display: flex;
@@ -76,4 +68,7 @@ $mde-help-color:                    rgba(0,0,0,.15) !default;
 
 .delete-btn {
   cursor: pointer !important;
+}
+.row {
+  margin-bottom: -5px !important;
 }

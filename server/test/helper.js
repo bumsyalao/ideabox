@@ -67,7 +67,12 @@ module.exports = {
     category: 'comedy',
     access: 'public'
   },
-
+  valid3Idea: {
+    title: 'my ideaSSS',
+    description: 'for doing stuffs',
+    category: 'comedy',
+    access: 'public'
+  },
   editIdea: {
     title: 'edit idea',
     description: 'for doing stuff',
