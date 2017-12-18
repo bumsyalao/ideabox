@@ -13,7 +13,7 @@ const Routes = () => (
     <Route exact path="/" component={Homepage} />
     <Route path="/auth" component={Auth} />
     <Route path="/dashboard" component={Dashboard} />
-    <Route path="/dashboard/view/:ideaId" component={ViewIdea} />
+    <Route path="/view/:ideaId" component={ViewIdea} />
     <Route path="/forgot-password" component={ForgotPassword} />
     <Route path="/update-password/:hash" component={ResetPassword} />
     <Route component={PageNotFound} />

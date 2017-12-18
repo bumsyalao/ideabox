@@ -22,7 +22,7 @@ module.exports = (app) => {
   // api route to create a new Idea
   app.post('/api/v1/idea', auth.checkToken, Ideas.createIdea);
   // api route to get a idea
-  app.get('/api/v1/idea/:ideaId', auth.checkToken, Ideas.retrieveIdea);
+  app.get('/api/v1/idea/:ideaId', Ideas.retrieveIdea);
   // api route to get a users Ideas
   app.get('/api/v1/idea', auth.checkToken, Ideas.retrieveUserIdeas);
   // api route to get all public ideas

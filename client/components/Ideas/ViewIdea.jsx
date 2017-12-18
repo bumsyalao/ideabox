@@ -80,11 +80,13 @@ class ViewIdea extends Component {
     const mdDescription = converter.makeHtml(this.props.idea.description);
     const id = this.props.idea._id;
     return (
-      <div className="create-comment">
+      <div className="dashboard">
+      <div className="view-page-wrapper">
+      <div className="view-page">
         <div className="row">
           <h4>{this.props.idea.title}</h4>
           <a
-            href={`https://twitter.com/intent/tweet?text=This%20is%20amazing%20you%20should%20read%20it&url=${window.location.origin}/dashboard/view/${id}`}
+            href={`https://twitter.com/intent/tweet?text=This%20is%20amazing%20you%20should%20read%20it&url=${window.location.origin}/view/${id}`}
             className="tooltipped right"
             data-position="bottom"
             data-delay="50"
@@ -114,17 +116,19 @@ class ViewIdea extends Component {
                 ))}
             </ul>
           </div>
+          <label htmlFor="textarea1">Add a comment</label>
           <textarea
             id="comment"
             value={this.state.comment}
             onChange={this.onChange}
             className="materialize-textarea"
           />
-          <label htmlFor="textarea1">Add a comment</label>
           <a onClick={this.onSubmit} className="waves-effect waves-light right">
             <i className="material-icons card-icons">send</i>
           </a>
         </div>
+      </div>
+      </div>
       </div>
     );
   }

@@ -1,5 +1,7 @@
 
 .nav-style {
+    position: relative;
+    z-index: 2;
     background: transparent;
     margin-left: 2rem;
     margin-right: 2rem;
@@ -37,6 +39,6 @@
   margin-top: 1rem;
   height: 7vh;
 }
-  .material-icons {
-        font-size: 35px !important;
-  }
+.material-icons {
+  font-size: 35px !important;
+}

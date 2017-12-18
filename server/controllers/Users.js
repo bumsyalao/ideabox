@@ -156,27 +156,37 @@ class Users {
           req.body.username.trim() &&
           req.body.email.trim()
         ) {
-          updatedUser.username = req.body.username;
-          updatedUser.email = req.body.email;
-          updatedUser.save((err) => {
-            if (err) {
-              return res.status(400).send({
-                success: false,
-                error: err.message,
-                message: 'There was an error while updating your Profile'
+          User.findOne({ username: req.body.username })
+            .then((existingUsername) => {
+              if (existingUsername) {
+                return res.status(400).send({
+                  success: false,
+                  error: 'Existing username',
+                  message: 'Sorry a user exists with that username'
+                });
+              }
+              updatedUser.username = req.body.username;
+              updatedUser.email = req.body.email;
+              updatedUser.save((err) => {
+                if (err) {
+                  return res.status(400).send({
+                    success: false,
+                    error: err.message,
+                    message: 'There was an error while updating your Profile'
+                  });
+                }
+                const foundUser = {
+                  id: updatedUser._id,
+                  username: updatedUser.username,
+                  email: updatedUser.email
+                };
+                return res.status(200).send({
+                  success: true,
+                  message: 'Your profile has been updated succesfully',
+                  foundUser
+                });
               });
-            }
-            const foundUser = {
-              id: updatedUser._id,
-              username: updatedUser.username,
-              email: updatedUser.email
-            };
-            return res.status(200).send({
-              success: true,
-              message: 'Your profile has been updated succesfully',
-              foundUser
             });
-          });
         } else {
           return res.status(400).send({
             success: false,
@@ -254,9 +264,7 @@ class Users {
     return User.findOne({ hash: req.params.hash })
       .then((user) => {
         if (
-          req.body.newPassword &&
-          req.body.confirmPassword &&
-          req.body.newPassword === req.body.confirmPassword
+          req.body.password
         ) {
           const currentTime = Date.now();
 
@@ -266,7 +274,7 @@ class Users {
               message: 'Expired link'
             });
           }
-          user.password = req.body.newPassword;
+          user.password = req.body.password;
           user.save((err, updatedUser) => {
             if (err) {
               return res.status(400).send({
@@ -304,13 +312,11 @@ class Users {
    */
   viewUser(req, res) {
     User.findOne({ username: req.decoded.username }).exec()
-    .then((foundUser) => {
-      return res.status(200).send({
-        success: true,
-        message: 'found User',
-        foundUser
-      });
-    }).catch(() => res.status(401).send({
+    .then(foundUser => res.status(200).send({
+      success: true,
+      message: 'found User',
+      foundUser
+    })).catch(() => res.status(401).send({
       success: false,
       error: 'invalid user',
       message: 'User not authorized'

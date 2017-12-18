@@ -52,8 +52,9 @@ class ResetPassword extends Component {
     if (this.state.confirmPassword !== this.state.password) {
       Materialize.toast('Password does not match', 5000, 'red');
     } else {
+      console.log('password ====', password);
       this.props
-        .resetPasswordAction({ password, hash })
+        .resetPasswordAction(password, hash)
         .then(() => {
           this.props.history.push('/dashboard/idea-list');
           Materialize.toast('Password Updated Successfully', 5000, 'green');

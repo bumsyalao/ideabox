@@ -21,7 +21,7 @@ class EditIdea extends Component {
     super(props);
     this.state = {
       title: this.props.idea.title,
-      description: this.props.idea.description,
+      description: this.props.idea.description || {},
       category: this.props.idea.category,
       access: this.props.idea.access
     };
@@ -38,13 +38,15 @@ class EditIdea extends Component {
  */
   componentWillMount() {
     const ideaId = this.props.match.params.ideaId;
-    const foundIdea = this.props.ideas.find(idea => idea._id == ideaId);
-    const { title, description, category } = foundIdea;
-    this.setState({
-      title,
-      description,
-      category
-    });
+    this.props.getIdea(ideaId)
+      .then(() => {
+        this.setState({
+          title: this.props.idea.title,
+          category: this.props.idea.category,
+          description: this.props.idea.description,
+          access: this.props.idea.access
+        });
+      });
   }
 /**
  * Updates state if props are changed

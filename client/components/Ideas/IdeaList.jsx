@@ -26,6 +26,7 @@ class IdeaList extends Component {
     this.onSearch = this.onSearch.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onCancel = this.onCancel.bind(this);
   }
   /**
    * Makes an action call to get Ideas
@@ -44,9 +45,10 @@ class IdeaList extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState({
-      ideas: nextProps.foundIdeas,
       pageCount: nextProps.pagination.pageCount,
-      count: nextProps.pagination.count
+      count: nextProps.pagination.count,
+      ideas: nextProps.ideas,
+      foundIdeas: nextProps.foundIdeas
     });
   }
   /**
@@ -70,7 +72,6 @@ class IdeaList extends Component {
       title: this.props.foundIdeas.title,
       id: this.props.foundIdeas._id,
       description: this.props.foundIdeas.description,
-      category: this.props.foundIdeas.category,
       access: this.props.foundIdeas.access,
       authorName: this.props.foundIdeas.authorName
     }));
@@ -84,6 +85,19 @@ class IdeaList extends Component {
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
+
+  /**
+   * Updates state when function is called
+   * @return {void}
+   * @memberOf IdeaList
+   */
+  onCancel() {
+    this.setState({
+      searchParam: '',
+      foundIdeas: []
+    });
+  }
+
   /**
    * Pagination for list of ideas
    * @param {object} pageData
@@ -105,12 +119,22 @@ class IdeaList extends Component {
    * @memberOf IdeaList
    */
   render() {
+    let result = this.state.ideas || [];
+
+    if (this.state.foundIdeas && this.state.foundIdeas.length > 0) {
+      result = this.state.foundIdeas;
+    }
+
     return (
       <div>
         <div className="row search-row">
           <form className="col s12">
             <div className="row">
               <div className="input-field col s3 inline right white-text">
+                <a
+                  className="row waves-effect waves-light right cancel-btn"
+                  onClick={this.onCancel}
+                ><i className="material-icons icon-btn">cancel</i></a>
                 <input
                   id="searchParam"
                   value={this.state.searchParam}
@@ -158,7 +182,7 @@ class IdeaList extends Component {
           </form>
         </div>
         <div className="idea-list grid grid-margin">
-          {this.props.ideas.map(idea => (
+          {result.map(idea => (
             <IdeaCard
               key={idea._id}
               id={idea._id}

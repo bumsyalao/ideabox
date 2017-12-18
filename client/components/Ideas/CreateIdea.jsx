@@ -68,6 +68,7 @@ class CreateIdea extends Component {
     this.props.createIdea(newIdea)
       .then(() => {
         Materialize.toast('Your Idea has been created', 5000, 'green');
+        this.props.history.push('/dashboard/idea-list');
       }).catch((err) => {
         Materialize.toast(err.response.data.message, 5000, 'red');
       });
@@ -88,16 +89,6 @@ class CreateIdea extends Component {
     return (
       <div className="create-idea">
         <div className="row">
-          <Link
-            to="/dashboard/idea-list"
-            className="btn tooltipped btn-floating btn-large waves-effect waves-light red close-btn right"
-            data-position="bottom"
-            data-delay="50"
-            data-tooltip="close"
-          >
-            <i
-              className="material-icons"
-            >close</i></Link>
           <h4> Write down that Idea! </h4>
           <form className="col s12 form-margin">
             <div className="row">

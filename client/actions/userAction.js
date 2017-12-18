@@ -115,5 +115,6 @@ export const forgotPasswordAction = email =>
  * api call to forgotPasswordAction
  * @return {void}
  */
-export const resetPasswordAction = ({ hash, password }) =>
-    dispatch => axios(`/api/v1/user/update/${hash}`, password);
+export const resetPasswordAction = (password, hash) =>
+    dispatch => axios.put(`/api/v1/user/update-password/${hash}`, { password });
+

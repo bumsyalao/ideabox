@@ -11,6 +11,49 @@ import * as Showdown from 'showdown';
 class IdeaCard extends Component {
 
   /**
+   * Creates an instance of IdeaCard.
+   * @param {object} props
+   *
+   * @memberOf IdeaCard
+   */
+  constructor(props) {
+    super(props);
+    this.copyLink = this.copyLink.bind(this);
+  }
+
+  /**
+   * Functo to copy to clipboard
+   *
+   * @param {string} text
+   * @returns {void}
+   * @memberOf IdeaCard
+   */
+  copyLink(text) {
+    if (window.clipboardData && window.clipboardData.setData) {
+      // IE specific code path to prevent textarea being shown while dialog is visible.
+      return clipboardData.setData('Text', text);
+    } else if (
+      document.queryCommandSupported &&
+      document.queryCommandSupported('copy')
+    ) {
+      const textarea = document.createElement('textarea');
+      textarea.textContent = text;
+      textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in MS Edge.
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        return document.execCommand('copy'); // Security exception may be thrown by some browsers.
+      } catch (ex) {
+        console.warn('Copy to clipboard failed.', ex);
+        return false;
+      } finally {
+        document.body.removeChild(textarea);
+        Materialize.toast('Copied to clipboard', 5000, 'green');
+      }
+    }
+  }
+
+  /**
    * Renders Idea card class
    * @returns {void}
    *
@@ -38,9 +81,12 @@ class IdeaCard extends Component {
           <ul className="card-icons">
             <li>
               <a
-                href={`${window.location.origin}/dashboard/view/${id}`}
-                rel="noopener noreferrer"
-                target="_blank"
+                id={id}
+                href={`${window.location.origin}/view/${id}`}
+                onClick={e => {
+                  e.preventDefault();
+                  this.copyLink(`${window.location.origin}/view/${id}`);
+                }}
               >
                 <i
                   className="tiny material-icons icon-btn tooltipped"
@@ -60,7 +106,7 @@ class IdeaCard extends Component {
                   data-delay="50"
                   data-tooltip="view article"
                 >
-                  insert_comment
+                  remove_red_eye
                 </i>
               </Link>
             </li>
@@ -70,7 +116,10 @@ class IdeaCard extends Component {
           <span className="card-title grey-text text-darken-4">
             <i className="material-icons right">close</i>
           </span>
-          <p dangerouslySetInnerHTML={{ __html: mdDescription }} className="truncate" />
+          <p
+            dangerouslySetInnerHTML={{ __html: mdDescription }}
+            className="truncate"
+          />
         </div>
       </div>
     );

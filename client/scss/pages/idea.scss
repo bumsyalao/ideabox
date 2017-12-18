@@ -26,10 +26,10 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
 
   .grid-item {
     width: calc((100% - (30px * 2))/3);
+    margin: 10px !important;
 
     @media screen and (max-width: 992px) {
       width: calc((100% - (30px * 1))/2);
@@ -71,4 +71,11 @@
 }
 .row {
   margin-bottom: -5px !important;
+}
+.cancel-btn {
+  position: absolute;
+  right: 12px;
+  top: 13px;
+  color: #fff;
+  opacity: .6;
 }
