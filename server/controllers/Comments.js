@@ -22,16 +22,9 @@ class Comments {
         message: 'Please enter a comment'
       });
     }
-    Idea.find({ _id: req.params.ideaId }).exec()
+    Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
-        if (!foundIdea.length) {
-          return res.status(404).send({
-            success: false,
-            error: 'Not found',
-            message: 'Idea not found'
-          });
-        }
-        if (foundIdea[0].access === 'private') {
+        if (foundIdea.access === 'private') {
           return res.status(403).send({
             success: false,
             error: 'Forbidden',
@@ -42,9 +35,11 @@ class Comments {
           comment: req.body.comment,
           authorId: req.decoded.id,
           authorName: req.decoded.username,
-          ideaId: foundIdea[0]._id
+          ideaId: foundIdea._id
         };
         const newComment = new Comment(commentDetails);
+        foundIdea.comments.push(newComment);
+        foundIdea.save();
         newComment.save((err) => {
           if (err) {
             return res.status(400).send({

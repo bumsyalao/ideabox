@@ -18,7 +18,6 @@ class Ideas {
   createIdea(req, res) {
     if (
       req.body.title.trim() &&
-      req.body.description.trim() &&
       req.body.category &&
       req.body.access
     ) {
@@ -34,6 +33,7 @@ class Ideas {
           title: req.body.title,
           description: req.body.description,
           authorId: req.decoded.id,
+          authorName: req.decoded.username,
           category: req.body.category,
           access: req.body.access
         };
@@ -74,12 +74,6 @@ class Ideas {
   retrieveUserIdeas(req, res) {
     Idea.find({ authorId: req.decoded.id }).exec()
       .then((foundIdeas) => {
-        if (!foundIdeas.length) {
-          return res.status(404).send({
-            success: true,
-            message: 'You have no Idea'
-          });
-        }
         return res.status(200).send({
           success: true,
           message: 'Found Ideas',
@@ -89,6 +83,30 @@ class Ideas {
         success: false,
         error: 'invalid user',
         message: 'User not authorized'
+      }));
+  }
+    /**
+   * Get a Idea
+   * Routes: GET: /api/v1/idea/:ideaId
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   * @memberOf Ideas
+   */
+  retrieveIdea(req, res) {
+    Idea.findOne({ _id: req.params.ideaId })
+    .populate('comments')
+    .exec()
+      .then(foundIdea => res.status(200).send({
+        success: true,
+        message: 'Found Idea',
+        foundIdea
+      }))
+
+      .catch(() => res.status(401).send({
+        success: false,
+        error: 'invalid Idea',
+        message: 'Invalid Idea Id'
       }));
   }
 
@@ -103,12 +121,6 @@ class Ideas {
   retrieveIdeas(req, res) {
     Idea.find({ access: 'public' }).exec()
       .then((foundIdeas) => {
-        if (!foundIdeas.length) {
-          return res.status(404).send({
-            success: true,
-            message: 'You have no Idea'
-          });
-        }
         return res.status(200).send({
           success: true,
           message: 'Found Ideas',
@@ -132,13 +144,6 @@ class Ideas {
     const id = req.decoded.id;
     Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
-        if (!foundIdea.length) {
-          return res.status(404).send({
-            success: false,
-            error: 'Not found',
-            message: 'Idea does not exist'
-          });
-        }
         if (
           id == foundIdea.authorId &&
           req.body.title &&
@@ -151,6 +156,7 @@ class Ideas {
           foundIdea.category = req.body.category;
           foundIdea.access = req.body.access;
           foundIdea.modified = true;
+          foundIdea.authorName = req.decoded.username;
           foundIdea.save((err) => {
             if (err) {
               return res.status(400).send({
@@ -191,13 +197,6 @@ class Ideas {
     const id = req.decoded.id;
     Idea.findOne({ _id: req.params.ideaId }).exec()
       .then((foundIdea) => {
-        if (!foundIdea.length) {
-          return res.status(404).send({
-            success: false,
-            error: 'Not found',
-            message: 'Cannot find Idea'
-          });
-        }
         if (id != foundIdea.authorId) {
           return res.status(403).send({
             success: false,
@@ -228,38 +227,33 @@ class Ideas {
 
   /**
    * Search Ideas
-   * Route: POST: /api/v1/ideas?limit=${limit}&offset=${offset}
+   * Route: GET: /api/v1/ideas?limit=${limit}&offset=${offset}
    * @param {any} req
    * @param {any} res
    * @return {void}
    * @memberOf Ideas
    */
   searchIdeas(req, res) {
-    if (!req.body.searchParam) {
-      res.status(400).send({
-        success: false,
-        message: 'please add search term'
-      });
-    }
     const offset = Number(req.query.offset);
     const limit = Number(req.query.limit);
     let count;
     Idea.count({
-      $text: { $search: req.body.searchParam.trim() },
-      category: req.body.category
+      $text: { $search: req.query.searchParam.toLowerCase() },
+      category: req.query.category.toLowerCase(),
+      access: 'public'
     }, (err, iscount) => {
       count = iscount;
-    });
-    const promise = Idea.find({
-      $text: { $search: req.body.searchParam.trim() },
-      category: req.body.category
-    })
+      const promise = Idea.find({
+        $text: { $search: req.query.searchParam.toLowerCase() },
+        category: req.query.category.toLowerCase()
+      })
       .skip(offset)
       .limit(limit).exec();
-    promise.then(ideas => res.status(200).send({
-      ideas,
-      pageInfo: pagination(count, limit, offset),
-    }));
+      promise.then(ideas => res.status(200).send({
+        ideas,
+        pageInfo: pagination(count, limit, offset),
+      }));
+    });
   }
 }
 

@@ -151,36 +151,42 @@ class Users {
    */
   updateProfile(req, res) {
     User.findOne({ _id: req.decoded.id })
-      .then((foundUser) => {
-        if (!foundUser) {
-          return res.status(404).send({
-            success: false,
-            error: 'Not found',
-            message: 'User does not exist'
-          });
-        }
+      .then((updatedUser) => {
         if (
           req.body.username.trim() &&
-          req.body.email.trim() &&
-          req.body.password.trim()
+          req.body.email.trim()
         ) {
-          foundUser.username = req.body.username;
-          foundUser.email = req.body.email;
-          foundUser.password = req.body.password;
-          foundUser.save((err) => {
-            if (err) {
-              return res.status(400).send({
-                success: false,
-                error: err.message,
-                message: 'There was an error while updating your Profile'
+          User.findOne({ username: req.body.username })
+            .then((existingUsername) => {
+              if (existingUsername) {
+                return res.status(400).send({
+                  success: false,
+                  error: 'Existing username',
+                  message: 'Sorry a user exists with that username'
+                });
+              }
+              updatedUser.username = req.body.username;
+              updatedUser.email = req.body.email;
+              updatedUser.save((err) => {
+                if (err) {
+                  return res.status(400).send({
+                    success: false,
+                    error: err.message,
+                    message: 'There was an error while updating your Profile'
+                  });
+                }
+                const foundUser = {
+                  id: updatedUser._id,
+                  username: updatedUser.username,
+                  email: updatedUser.email
+                };
+                return res.status(200).send({
+                  success: true,
+                  message: 'Your profile has been updated succesfully',
+                  foundUser
+                });
               });
-            }
-            return res.status(200).send({
-              success: true,
-              message: 'Your profile has been updated succesfully',
-              foundUser
             });
-          });
         } else {
           return res.status(400).send({
             success: false,
@@ -249,7 +255,7 @@ class Users {
 
   /**
    * Update Password
-   * Route: POST: /api/v1/user/update-password/:hash
+   * Route: PUT: /api/v1/user/update-password/:hash
    * @param {object} req
    * @param {object} res
    *  @return {void}
@@ -257,17 +263,8 @@ class Users {
   updatePassword(req, res) {
     return User.findOne({ hash: req.params.hash })
       .then((user) => {
-        if (user === null) {
-          return res.status(404).send({
-            success: false,
-            message: 'User does not exist'
-          });
-        }
-
         if (
-          req.body.newPassword &&
-          req.body.confirmPassword &&
-          req.body.newPassword === req.body.confirmPassword
+          req.body.password
         ) {
           const currentTime = Date.now();
 
@@ -277,7 +274,7 @@ class Users {
               message: 'Expired link'
             });
           }
-          user.password = req.body.newPassword;
+          user.password = req.body.password;
           user.save((err, updatedUser) => {
             if (err) {
               return res.status(400).send({
@@ -303,6 +300,27 @@ class Users {
         success: false,
         message: error.message
       }));
+  }
+
+  /**
+   * View a User
+   * Route: GET: /api/v1/user/profile
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   * @memberOf Users
+   */
+  viewUser(req, res) {
+    User.findOne({ username: req.decoded.username }).exec()
+    .then(foundUser => res.status(200).send({
+      success: true,
+      message: 'found User',
+      foundUser
+    })).catch(() => res.status(401).send({
+      success: false,
+      error: 'invalid user',
+      message: 'User not authorized'
+    }));
   }
 }
 

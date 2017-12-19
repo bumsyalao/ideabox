@@ -1,34 +1,75 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import ReactMde, { ReactMdeCommands } from 'react-mde';
-import { createIdea } from '../../actions/ideaAction';
-
+import { editIdea, getUserIdeas, getIdea } from '../../actions/ideaAction';
 
 /**
- * Create Idea component
+ * Edit Idea Class
  *
- * @class CreateIdea
+ * @class EditIdea
  * @extends {Component}
  */
-class CreateIdea extends Component {
+class EditIdea extends Component {
   /**
-   * Creates an instance of CreateIdea.
+   * Creates an instance of EditIdea.
    * @param {any} props
    *
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   constructor(props) {
     super(props);
     this.state = {
-      title: '',
-      description: '',
-      category: '',
-      access: ''
+      title: this.props.idea.title,
+      description: this.props.idea.description || {},
+      category: this.props.idea.category,
+      access: this.props.idea.access
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleValueChange = this.handleValueChange.bind(this);
+  }
+
+/**
+ * Makes a call to get Idea
+ *
+ * @return {void}
+ * @memberOf EditIdea
+ */
+  componentWillMount() {
+    const ideaId = this.props.match.params.ideaId;
+    this.props.getIdea(ideaId)
+      .then(() => {
+        this.setState({
+          title: this.props.idea.title,
+          category: this.props.idea.category,
+          description: this.props.idea.description,
+          access: this.props.idea.access
+        });
+      });
+  }
+/**
+ * Updates state if props are changed
+ * @param {any} nextProps
+ * @return {void}
+ * @memberOf EditIdea
+ */
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      title: nextProps.idea.title,
+      description: nextProps.idea.description,
+      category: nextProps.idea.category,
+      access: nextProps.idea.access
+    });
+  }
+  /**
+   * Sets the event value to the state
+   * @param {object} event
+   * @return {void}
+   * @memberOf EditIdea
+   */
+  onChange(event) {
+    this.setState({ [event.target.id]: event.target.value });
   }
   /**
    * Sets the event value to the state
@@ -39,24 +80,16 @@ class CreateIdea extends Component {
   handleValueChange = (value) => {
     this.setState({ description: value });
   }
-  /**
-   * Sets the event value to the state
-   * @param {object} event
-   * @return {void}
-   * @memberOf CreateIdea
-   */
-  onChange(event) {
-    this.setState({ [event.target.id]: event.target.value });
-  }
 
   /**
-   * Makes a call to create new Idea
+   * Makes a call to edit Idea
    * @param {object} event
    * @return {void}
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   onSubmit(event) {
     event.preventDefault();
+    const { ideaId } = this.props.match.params;
     const accessType = $('#switch-btn').is(':checked') ? 'public' : 'private';
     const descriptionMde = this.state.description.text;
     const newIdea = {
@@ -65,22 +98,22 @@ class CreateIdea extends Component {
       category: this.state.category,
       access: accessType
     };
-    this.props.createIdea(newIdea)
+    this.props.editIdea(newIdea, ideaId)
       .then(() => {
-        Materialize.toast('Your Idea has been created', 5000, 'green');
-        this.props.history.push('/dashboard/idea-list');
+        Materialize.toast('Your Idea has been updated', 5000, 'green');
+        this.props.history.push('/dashboard/my-ideas');
       }).catch((err) => {
         Materialize.toast(err.response.data.message, 5000, 'red');
       });
   }
   /**
-   * renders create idea component
+   * Renders Edit Idea component
    * @returns {void}
    *
-   * @memberOf CreateIdea
+   * @memberOf EditIdea
    */
   render() {
-    $(document).ready(function() {
+    $(document).ready(() => {
       $('select').material_select();
       $('#switch-btn').prop('checked');
       $('.tooltipped').tooltip({ delay: 50 });
@@ -89,10 +122,10 @@ class CreateIdea extends Component {
     return (
       <div className="create-idea">
         <div className="row">
-          <h4> Write down that Idea! </h4>
+          <h4> Edit Idea </h4>
           <form className="col s12 form-margin">
             <div className="row">
-              <div className="input-field col s12 inline">
+              <div className="input-field col s12">
                 <input
                   id="title"
                   value={this.state.title}
@@ -100,7 +133,6 @@ class CreateIdea extends Component {
                   type="text"
                   className="validate"
                 />
-                <label htmlFor="Title">Title</label>
               </div>
             </div>
             <div className="input-field col s12">
@@ -136,7 +168,7 @@ class CreateIdea extends Component {
 
               </select>
             </div>
-            <div className="col s12">
+            <div className="input-field col s12">
               <ReactMde
                 textAreaProps={{
                   id: 'description',
@@ -160,7 +192,7 @@ class CreateIdea extends Component {
             <button
               className="waves-effect waves-light btn right"
               onClick={this.onSubmit}
-            >Create Idea</button>
+            >Save Idea</button>
           </form>
         </div>
       </div>
@@ -169,6 +201,10 @@ class CreateIdea extends Component {
 }
 const mapStateToProps = state => ({
   user: state.access.user,
+  ideas: state.ideas.ideas,
+  idea: state.ideas.idea,
+
 });
 
-export default connect(mapStateToProps, { createIdea })(withRouter(CreateIdea));
+export default connect(mapStateToProps, { editIdea, getUserIdeas, getIdea })(
+  withRouter(EditIdea));

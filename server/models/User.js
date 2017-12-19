@@ -2,7 +2,6 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 import validator from 'validator';
 
-// const { Schema } = mongoose.Schema;
 const SALT_WORK_FACTOR = 10;
 
 const UserSchema = new mongoose.Schema(

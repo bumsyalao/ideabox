@@ -2,11 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ideaboxlogo from '../../client/images/idea logo.png';
 
+/**
+ * @function Homepage
+ * @return {void}
+ */
 const Homepage = () => (
   <div>
     { $('.tooltipped').tooltip('remove') }
     <div className="section no-pad-bot bkg-style" id="index-banner">
-      <div className="container homepage">
+      <div className="homepage">
         <br />
         <div className="center">
           <img src={ideaboxlogo} />

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import attachAuthToken from '../utils/attachAuthToken';
-import { LOGIN_USER, REGISTER_USER, LOGOUT_USER } from './types';
+import { LOGIN_USER, REGISTER_USER, LOGOUT_USER, EDIT_USER_PROFILE, GET_USER } from './types';
 
 export const loginSuccess = (userInfo, message) => ({
   type: LOGIN_USER,
@@ -17,6 +17,34 @@ export const registerSuccess = (userInfo, message) => ({
 export const logoutSuccess = () => ({
   type: LOGOUT_USER
 });
+
+export const viewUserSuccess = foundUser => ({
+  type: GET_USER,
+  foundUser
+});
+
+export const editProfileSuccess = (foundUser, message) => ({
+  type: EDIT_USER_PROFILE,
+  foundUser,
+  message
+});
+
+
+/**
+ * api call to edit profile
+ * @param {object} updatedInfo
+ * @return {object} returns userDetails message
+ */
+export const editProfile = updatedInfo => dispatch =>
+  axios
+    .put('/api/v1/user/update', updatedInfo)
+    .then((response) => {
+      dispatch(
+        editProfileSuccess(response.data.foundUser, response.data.message)
+      );
+    }).catch((error) => {
+      throw error;
+    });
 
 /**
  * api call to loginRequest
@@ -64,3 +92,29 @@ export const logoutRequest = () => (dispatch) => {
   attachAuthToken(false);
   return dispatch(logoutSuccess());
 };
+/**
+ * api call to view user
+ * @return {object} returns userDetails message
+ */
+export const viewUser = () => dispatch =>
+  axios
+    .get('/api/v1/user/profile')
+    .then((response) => {
+      dispatch(viewUserSuccess(response.data.foundUser));
+    })
+    .catch((error) => {
+      throw error;
+    });
+/**
+ * api call to forgotPasswordAction
+ * @return {void}
+ */
+export const forgotPasswordAction = email =>
+  dispatch => axios.post('/api/v1/user/forgot-password', email);
+/**
+ * api call to forgotPasswordAction
+ * @return {void}
+ */
+export const resetPasswordAction = (password, hash) =>
+    dispatch => axios.put(`/api/v1/user/update-password/${hash}`, { password });
+

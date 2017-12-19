@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { loginRequest, registerRequest } from '../../actions/authAction';
+import { withRouter, Link } from 'react-router-dom';
+import { loginRequest, registerRequest } from '../../actions/userAction';
 import ideaboxlogo from '../../images/idea logo.png';
 
 /**
- * Render Register Form
+ * Auth Component
  *
  * @class Register
  * @extends {Component}
@@ -40,8 +40,9 @@ class Auth extends Component {
    */
   componentDidMount() {
     if (this.props.access.isAuthenticated) {
-      this.props.history.push('/dashboard');
+      this.props.history.push('/dashboard/idea-list');
     }
+    $('.tooltipped').tooltip('remove');
      // Variables
     const signupButton = document.getElementById('signup-button');
     const loginButton = document.getElementById('login-button');
@@ -89,7 +90,7 @@ class Auth extends Component {
       .loginRequest(loginInfo)
       .then((res) => {
         this.setState({ loggedIn: true });
-        this.props.history.push('/dashboard');
+        this.props.history.push('/dashboard/idea-list');
         Materialize.toast(res.message, 3000, 'green');
       })
       .catch((error) => {
@@ -115,7 +116,7 @@ class Auth extends Component {
       .registerRequest(registerInfo)
       .then((res) => {
         this.setState({ loggedIn: true });
-        this.props.history.push('/dashboard');
+        this.props.history.push('/dashboard/idea-list');
         Materialize.toast(res.message, 3000, 'green');
       })
       .catch((error) => {
@@ -190,9 +191,9 @@ class Auth extends Component {
                     </div>
                   </fieldset>
                   <div className="forms_buttons">
-                    <button type="button" className="forms_buttons-forgot">
+                    <Link to="/forgot-password" type="button" className="forms_buttons-forgot">
                       Forgot password?
-                    </button>
+                    </Link>
                     <input
                       onClick={this.onLogin}
                       type="submit"
