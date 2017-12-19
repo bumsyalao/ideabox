@@ -48,7 +48,7 @@ before((done) => {
     });
 });
 
-describe('Comments', () => {
+xdescribe('Comments', () => {
   describe('Add comment', () => {
     it('should return 200 when succesful', () => {
       api

@@ -127,7 +127,7 @@
     "expect": "^21.2.1",
     "file-loader": "^0.11.2",
     "img-loader": "^2.0.0",
-    "jest": "^21.0.1",
+    "jest": "^21.2.1",
     "jquery": "^3.2.1",
     "mongoose": "^4.13.5",
     "moxios": "^0.4.0",
@@ -136,5 +136,34 @@
     "nyc": "^11.1.0",
     "react-test-renderer": "^16.2.0",
     "regenerator-runtime": "^0.11.0"
+  },
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/client/test-env.js"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/client/utils/assetsTransformer.js",
+      "\\.(css|less)$": "<rootDir>/client/utils/assetsTransformer.js"
+    },
+    "roots": [
+      "<rootDir>/client/"
+    ],
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!**/server/**",
+      "!**/coverage/**",
+      "!webpack.config.js",
+      "!webpack.config.prod.js",
+      "!bundle.js",
+      "!**/client/Index.jsx",
+      "!**/client/Routes.jsx",
+      "!**/client/dist/**",
+      "!**/client/reducers/combineReducer.js",
+      "!**/client/utils/assetsTransformer.js",
+      "!**/client/store/**",
+      "!**/client/utils/**"
+    ]
   }
 }

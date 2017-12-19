@@ -147,12 +147,12 @@ describe('Users', () => {
   });
 
   describe('update profile', () => {
-    it('should return 404 when user does not exist', (done) => {
+    it('should return 401 when user does not exist', (done) => {
       api
         .put('/api/v1/user/update', Users.updateProfile)
         .end((err, res) => {
           if (res) {
-            expect(res).to.have.status(404);
+            expect(res).to.have.status(401);
           }
           done();
         });

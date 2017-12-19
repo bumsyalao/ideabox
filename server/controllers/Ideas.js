@@ -74,12 +74,6 @@ class Ideas {
   retrieveUserIdeas(req, res) {
     Idea.find({ authorId: req.decoded.id }).exec()
       .then((foundIdeas) => {
-        if (!foundIdeas.length) {
-          return res.status(404).send({
-            success: true,
-            message: 'You have no Idea'
-          });
-        }
         return res.status(200).send({
           success: true,
           message: 'Found Ideas',
@@ -127,12 +121,6 @@ class Ideas {
   retrieveIdeas(req, res) {
     Idea.find({ access: 'public' }).exec()
       .then((foundIdeas) => {
-        if (!foundIdeas.length) {
-          return res.status(404).send({
-            success: true,
-            message: 'You have no Idea'
-          });
-        }
         return res.status(200).send({
           success: true,
           message: 'Found Ideas',

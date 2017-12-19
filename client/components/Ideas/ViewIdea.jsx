@@ -73,7 +73,7 @@ class ViewIdea extends Component {
    * @memberOf ViewIdea
    */
   render() {
-    $(document).ready(function() {
+    $(document).ready(() => {
       $('.tooltipped').tooltip({ delay: 50 });
     });
     const converter = new Showdown.Converter();
