@@ -22,12 +22,14 @@ chai.use(chaiHttp);
 let validToken;
 let ideaId;
 
-before((done) => {
-  mongoose.createConnection(process.env.DATABASE_URL_TEST, () => {
-    mongoose.connection.db.dropDatabase(() => {
+
+xdescribe('Comments', () => {
+  before((done) => {
+    mongoose.createConnection(process.env.DATABASE_URL_TEST, () => {
+      mongoose.connection.db.dropDatabase(() => {
+      });
     });
-  });
-  api
+    api
     .post('/api/v1/user/register', Users.register)
     .set('Accept', 'application/json')
     .send(dumUser)
@@ -46,9 +48,7 @@ before((done) => {
       }
       done();
     });
-});
-
-xdescribe('Comments', () => {
+  });
   describe('Add comment', () => {
     it('should return 200 when succesful', () => {
       api
@@ -73,6 +73,19 @@ xdescribe('Comments', () => {
             expect(res).to.have.status(400);
             res.body.should.have.property('message')
               .equal('Please enter a comment');
+          }
+        });
+    });
+  });
+
+  describe('Get comment', () => {
+    it('should return 200 when successful', () => {
+      api
+        .get(`/api/v1/idea/${ideaId}/comment`, Comments.getComment)
+        .set('x-access-token', validToken)
+        .end((err, res) => {
+          if (!err) {
+            expect(res).to.have.status(200);
           }
         });
     });

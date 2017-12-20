@@ -5,5 +5,5 @@ services:
   - mongodb
 script:
   - npm test
-after_success: 
+after_script: 
   - npm run coveralls

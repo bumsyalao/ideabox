@@ -6,6 +6,11 @@ module.exports = {
     password: 'medicine'
   },
 
+  invalidUpdate: {
+    username: 'candy',
+    email: 'chopper@email.com'
+  },
+
   dummyUser: {
     username: 'candydum45',
     email: 'chopperdum45@email.com',

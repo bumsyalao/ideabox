@@ -23,7 +23,7 @@ chai.use(chaiHttp);
 let validToken;
 let ideaId;
 
-before((done) => {
+before(() => {
   mongoose.createConnection(process.env.DATABASE_URL_TEST, () => {
     mongoose.connection.db.dropDatabase(() => {
     });
@@ -45,7 +45,6 @@ before((done) => {
           }
         });
       }
-      done();
     });
 });
 
@@ -136,7 +135,7 @@ describe('Ideas', () => {
         });
     });
   });
-  xdescribe('Edit Idea', () => {
+  describe('Edit Idea', () => {
     it('should return 200 when succesful', (done) => {
       api
         .put(`/api/v1/idea/${ideaId}`, Ideas.editIdea)
@@ -177,8 +176,8 @@ describe('Ideas', () => {
         });
     });
   });
-  xdescribe('Delete Idea', () => {
-    xit('should return 200 when successful', (done) => {
+  describe('Delete Idea', () => {
+    it('should return 200 when successful', (done) => {
       api
         .delete(`/api/v1/idea/${ideaId}`, Ideas.deleteIdea)
         .set('x-access-token', validToken)
