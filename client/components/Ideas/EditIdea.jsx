@@ -10,7 +10,7 @@ import { editIdea, getUserIdeas, getIdea } from '../../actions/ideaAction';
  * @class EditIdea
  * @extends {Component}
  */
-class EditIdea extends Component {
+export class EditIdea extends Component {
   /**
    * Creates an instance of EditIdea.
    * @param {any} props
@@ -190,6 +190,7 @@ class EditIdea extends Component {
               <p> Public Ideas can be seen by everyone </p>
             </div>
             <button
+              id="submit-btn"
               className="waves-effect waves-light btn right"
               onClick={this.onSubmit}
             >Save Idea</button>

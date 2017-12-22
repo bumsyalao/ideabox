@@ -24,6 +24,12 @@ const foundIdeas = [
     modified: true
   }
 ];
+const metaData = {
+  page: 1,
+  pageCount: 1,
+  pageSize: 1,
+  count: 1
+};
 describe('load ideas reducer', () => {
   it('should dispatch found ideas when succesful', () => {
     const action = loadIdeas(foundIdeas);
@@ -31,13 +37,29 @@ describe('load ideas reducer', () => {
     expect(newState.ideas[0].title).toEqual('new idea for the code base');
     expect(newState.ideas[0].category).toEqual('computers and electronics');
   });
-
-  xdescribe('load user ideas reducer', () => {
-    it('should dispatch found ideas when succesful', () => {
-      const action = loadUserIdeas(foundIdeas);
-      const newState = ideas(state, action);
-      expect(newState.ideas[0].title).toEqual('new idea for the code base');
-      expect(newState.ideas[0].category).toEqual('computers and electronics');
-    });
+});
+describe('load user ideas reducer', () => {
+  it('should dispatch found ideas when succesful', () => {
+    const action = loadUserIdeas(foundIdeas);
+    const newState = ideas(state, action);
+    expect(newState.myIdeas[0].title).toEqual('new idea for the code base');
+    expect(newState.myIdeas[0].category).toEqual('computers and electronics');
+  });
+});
+describe('load search ideas reducer', () => {
+  it('should dispatch found ideas when succesful', () => {
+    const action = loadSearchIdeas(foundIdeas, metaData);
+    const newState = ideas(state, action);
+    expect(newState.foundIdeas[0].title).toEqual('new idea for the code base');
+    expect(newState.foundIdeas[0].category).toEqual('computers and electronics');
+    expect(newState.pagination.page).toEqual(1);
+  });
+});
+describe('load idea reducer', () => {
+  it('should dispatch found ideas when succesful', () => {
+    const action = loadIdeaSuccess(foundIdeas);
+    const newState = ideas(state, action);
+    expect(newState.idea[0].title).toEqual('new idea for the code base');
+    expect(newState.idea[0].category).toEqual('computers and electronics');
   });
 });

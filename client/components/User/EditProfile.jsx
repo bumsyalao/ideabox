@@ -9,7 +9,7 @@ import { editProfile } from '../../actions/userAction';
  * @class EditProfile
  * @extends {Component}
  */
-class EditProfile extends Component {
+export class EditProfile extends Component {
   /**
    * Creates an instance on EditProfile form
    * Creates an instance of Edit Profile.
@@ -116,6 +116,7 @@ class EditProfile extends Component {
               </div>
             </div>
             <button
+              id="submit-btn"
               className="waves-effect waves-light btn right"
               onClick={this.editProfile}
             >

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hompeage component should match the Dashboard component snapshot 1`] = `
+<div
+  className="dashboard"
+>
+  <Connect(withRouter(NavigationBar)) />
+  <Switch>
+    <Route
+      component={[Function]}
+      path="/create-idea"
+    />
+    <Route
+      component={[Function]}
+      path="/idea-list"
+    />
+    <Route
+      component={[Function]}
+      path="/my-ideas"
+    />
+    <Route
+      component={[Function]}
+      path="/edit/:ideaId"
+    />
+    <Route
+      component={[Function]}
+      path="/user-update"
+    />
+    <Route
+      component={[Function]}
+      path="/view/:ideaId"
+    />
+    <Route
+      component={[Function]}
+    />
+  </Switch>
+</div>
+`;

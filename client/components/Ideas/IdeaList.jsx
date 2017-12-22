@@ -9,7 +9,7 @@ import { getPublicIdeas, searchIdeas } from '../../actions/ideaAction';
  * @class IdeaList
  * @extends {Component}
  */
-class IdeaList extends Component {
+export class IdeaList extends Component {
   /**
    * Creates an instance of IdeaList.
    * @param {any} props

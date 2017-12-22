@@ -16,7 +16,7 @@ import PageNotFound from '../components/PageNotFound';
  * @class Dashboard
  * @extends {Component}
  */
-class Dashboard extends Component {
+export class Dashboard extends Component {
   /**
    *
    * Check if user is authenticated

@@ -8,7 +8,7 @@ import * as Showdown from 'showdown';
  * @class IdeaCard
  * @extends {Component}
  */
-class IdeaCard extends Component {
+export class IdeaCard extends Component {
 
   /**
    * Creates an instance of IdeaCard.
