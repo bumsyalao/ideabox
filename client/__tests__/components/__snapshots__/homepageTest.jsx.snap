@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Hompeage component should match the homepage component snapshot 1`] = `
+<div>
+  <div
+    className="section no-pad-bot bkg-style"
+    id="index-banner"
+  >
+    <div
+      className="homepage"
+    >
+      <br />
+      <div
+        className="center"
+      >
+        <img
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
+        />
+      </div>
+      <div
+        className="row center"
+      >
+        <h3
+          className="header col s12 light"
+        >
+          Think inside the box!
+        </h3>
+      </div>
+      <div
+        className="row center"
+      >
+        <Link
+          className="btn-large waves-effect waves-light amber black-text"
+          id="download-button"
+          replace={false}
+          to="/auth"
+        >
+          Get Started
+        </Link>
+         
+      </div>
+      <br />
+    </div>
+  </div>
+</div>
+`;

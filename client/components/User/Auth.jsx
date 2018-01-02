@@ -10,7 +10,7 @@ import ideaboxlogo from '../../images/idea logo.png';
  * @class Register
  * @extends {Component}
  */
-class Auth extends Component {
+export class Auth extends Component {
   /**
    * Creates an instance on Register form
    * Creates an instance of Register.
@@ -243,6 +243,7 @@ class Auth extends Component {
                   </fieldset>
                   <div className="forms_buttons">
                     <input
+                      id="register-btn"
                       onClick={this.onRegister}
                       type="submit"
                       value="Sign up"

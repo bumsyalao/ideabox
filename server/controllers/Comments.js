@@ -73,12 +73,6 @@ class Comments {
   getComments(req, res) {
     Comment.find({ ideaId: req.params.ideaId }).exec()
       .then((ideaComment) => {
-        if (!ideaComment.length) {
-          return res.status(404).send({
-            success: true,
-            message: 'You have no comments'
-          });
-        }
         return res.status(200).send({
           success: true,
           ideaComment

@@ -8,7 +8,7 @@ import ideaboxlogo from '../../images/idea logo.png';
  * @class ForgotPassword
  * @extends {Component}
  */
-class ForgotPassword extends Component {
+export class ForgotPassword extends Component {
   /**
    * Creates an instance of ForgotPassword.
    * @param {object} props

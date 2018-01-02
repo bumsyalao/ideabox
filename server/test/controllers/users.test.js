@@ -12,6 +12,7 @@ import {
   invalidPassword,
   validSignin,
   dummy2User,
+  invalidUpdate
 } from '../helper';
 
 require('dotenv').config();

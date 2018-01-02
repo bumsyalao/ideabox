@@ -5,4 +5,6 @@ global.$ = () => ({
   sideNav: () => null,
   tooltip: () => null,
   prop: () => null,
+  ready: () => null,
+  is: () => null
 });

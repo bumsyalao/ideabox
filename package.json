@@ -10,9 +10,11 @@
     "build": "webpack --config webpack.config.js",
     "prebuild": "rm -rf ./dist",
     "prod-build": "./node_modules/.bin/webpack --config ./webpack.config.prod.js",
-    "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 50000  --exit server/test/**",
+    "client:test": "nightwatch",
+    "e2e-setup": "selenium-standalone install",
+    "test": "NODE_ENV=test nyc -x \"server/middleware/*.js\" --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 50000  --exit server/test/**",
     "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register server/tests/**/*.js --timeout 600000 --exit",
-    "coveralls": "npm run coverage -- --report lcovonly && cat coverage/lcov.info | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -135,7 +137,9 @@
     "npm-run-all": "^4.1.2",
     "nyc": "^11.1.0",
     "react-test-renderer": "^16.2.0",
-    "regenerator-runtime": "^0.11.0"
+    "regenerator-runtime": "^0.11.0",
+    "selenium-server-standalone-jar": "^3.8.1",
+    "selenium-standalone": "^6.12.0"
   },
   "jest": {
     "setupFiles": [
@@ -157,13 +161,15 @@
       "!webpack.config.js",
       "!webpack.config.prod.js",
       "!bundle.js",
-      "!**/client/Index.jsx",
+      "!**/client/index.jsx",
+      "!**/client/test-env.js",
       "!**/client/Routes.jsx",
       "!**/client/dist/**",
       "!**/client/reducers/combineReducer.js",
       "!**/client/utils/assetsTransformer.js",
       "!**/client/store/**",
-      "!**/client/utils/**"
+      "!**/client/utils/**",
+      "!**/client/test/**"
     ]
   }
 }

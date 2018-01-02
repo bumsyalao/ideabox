@@ -10,7 +10,7 @@ import ideaboxlogo from '../../images/idea logo.png';
  * @class ResetPassword
  * @extends {Component}
  */
-class ResetPassword extends Component {
+export class ResetPassword extends Component {
   /**
    * Creates an instance of ResetPassword.
    * @param {any} props

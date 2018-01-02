@@ -1,9 +1,10 @@
 # ideabox
 Ideabox is a simple application that allows users to create a pool of ideas and promote collaboration
 
+[API Documentation](https://ideabox1.docs.apiary.io/)
 
 [![Build Status](https://travis-ci.org/bumsyalao/ideabox.svg?branch=develop)](https://travis-ci.org/bumsyalao/ideabox)
-
+[![Coverage Status](https://coveralls.io/repos/github/bumsyalao/ideabox/badge.svg)](https://coveralls.io/github/bumsyalao/ideabox)
 
 ### Key Application Features
 
