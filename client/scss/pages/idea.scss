@@ -51,6 +51,7 @@
 
 .icon-btn {
   font-size: 20px !important;
+  color: #fdb96c !important;
   cursor: pointer !important;
 }
 
@@ -78,4 +79,7 @@
   top: 13px;
   color: #fff;
   opacity: .6;
+    >i {
+      color: #fff !important;
+    }
 }
