@@ -18,8 +18,7 @@ export default (state = initialState, action = {}) => {
     case types.LIST_FOUND_IDEAS:
       return {
         ...state,
-        foundIdeas: action.foundIdeas,
-        pagination: action.metaData
+        foundIdeas: action.foundIdeas
       };
     case types.LIST_USER_IDEAS:
       return {

@@ -33,6 +33,8 @@ module.exports = (app) => {
   app.delete('/api/v1/idea/:ideaId', auth.checkToken, Ideas.deleteIdea);
   // api route to search for Ideas
   app.get('/api/v1/ideas/search', auth.checkToken, Ideas.searchIdeas);
+  // api route to search for Ideas by category
+  app.get('/api/v1/ideas/searchCategory', auth.checkToken, Ideas.searchCategories);
   // api to add a comment to an Idea
   app.post('/api/v1/idea/:ideaId/comment', auth.checkToken, Comments.addComment);
   // api to add a comment to an Idea

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ReactPaginate from 'react-paginate';
 import IdeaCard from './IdeaCard';
-import { getPublicIdeas, searchIdeas } from '../../actions/ideaAction';
+import { getPublicIdeas, searchIdeas, searchCategory } from '../../actions/ideaAction';
 
 /**
  * Idea list component
@@ -24,7 +23,7 @@ export class IdeaList extends Component {
       category: ''
     };
     this.onSearch = this.onSearch.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    this.onFilter = this.onFilter.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCancel = this.onCancel.bind(this);
   }
@@ -45,8 +44,6 @@ export class IdeaList extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState({
-      pageCount: nextProps.pagination.pageCount,
-      count: nextProps.pagination.count,
       ideas: nextProps.ideas,
       foundIdeas: nextProps.foundIdeas
     });
@@ -60,13 +57,8 @@ export class IdeaList extends Component {
    * @memberOf IdeaList
    */
   onSearch() {
-    const limit = 9;
-    const offset = 0;
     this.props.searchIdeas(
-      offset,
-      limit,
-      this.state.searchParam,
-      this.state.category
+      this.state.searchParam
     )
     .then(() => this.setState({
       title: this.props.foundIdeas.title,
@@ -85,6 +77,14 @@ export class IdeaList extends Component {
   onChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
+  /**
+   * Sets the event value to the state
+   * @return {void}
+   * @memberOf IdeaList
+   */
+  onFilter() {
+    this.props.searchCategory(this.state.category);
+  }
 
   /**
    * Updates state when function is called
@@ -96,20 +96,6 @@ export class IdeaList extends Component {
       searchParam: '',
       foundIdeas: []
     });
-  }
-
-  /**
-   * Pagination for list of ideas
-   * @param {object} pageData
-   * @return {void}
-   * @memberOf Ideas
-   */
-  handlePageClick(pageData) {
-    const selected = pageData.selected;
-    const limit = 20;
-    const offset = Math.ceil(selected * limit);
-    this.setState({ offset });
-    this.getIdeas(offset, limit);
   }
 
   /**
@@ -127,10 +113,10 @@ export class IdeaList extends Component {
 
     return (
       <div>
-        <div className="row search-row">
-          <form className="col s12">
+        <div className="row">
+          <form className="col s12 search-row">
             <div className="row">
-              <div className="input-field col s3 inline right white-text">
+              <div className="input-field col s12 inline left white-text">
                 <a
                   className="row waves-effect waves-light right cancel-btn"
                   onClick={this.onCancel}
@@ -144,6 +130,10 @@ export class IdeaList extends Component {
                 />
                 <label htmlFor="search-param">Search Idea</label>
               </div>
+              <a
+                className="row waves-effect waves-light right"
+                onClick={this.onSearch}
+              ><i className="material-icons">search</i></a>
               </div>
               <div className="row input-field col s3 right">
                 <select
@@ -176,7 +166,7 @@ export class IdeaList extends Component {
                 </select>
               <a
                 className="row waves-effect waves-light right"
-                onClick={this.onSearch}
+                onClick={this.onFilter}
               ><i className="material-icons">search</i></a>
               </div>
           </form>
@@ -193,17 +183,6 @@ export class IdeaList extends Component {
               access={idea.access}
             />
         ))}
-          {(this.state.count > 9) && <ReactPaginate
-            previousLabel={'previous'}
-            nextLabel={'next'}
-            pageCount={this.state.pageCount}
-            marginPagesDisplayed={1}
-            pageRangeDisplayed={3}
-            onPageChange={this.handlePageClick}
-            containerClassName={'pagination'}
-            subContainerClassName={'pages pagination'}
-            activeClassName={'active'}
-          />}
         </div>
       </div>
     );
@@ -211,7 +190,6 @@ export class IdeaList extends Component {
 }
 const mapStateToProps = state => ({
   ideas: state.ideas.ideas,
-  foundIdeas: state.ideas.foundIdeas,
-  pagination: state.ideas.pagination
+  foundIdeas: state.ideas.foundIdeas
 });
-export default connect(mapStateToProps, { getPublicIdeas, searchIdeas })(IdeaList);
+export default connect(mapStateToProps, { getPublicIdeas, searchIdeas, searchCategory })(IdeaList);

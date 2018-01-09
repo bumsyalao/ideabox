@@ -1,5 +1,4 @@
 import Idea from '../models/Idea';
-import pagination from '../middleware/pagination';
 
 /**
  *
@@ -16,11 +15,7 @@ class Ideas {
    * @memberOf Idea
    */
   createIdea(req, res) {
-    if (
-      req.body.title.trim() &&
-      req.body.category &&
-      req.body.access
-    ) {
+    if (req.body.title.trim() && req.body.category && req.body.access) {
       Idea.findOne({ title: req.body.title }).exec((err, existingTitle) => {
         if (existingTitle) {
           return res.status(409).send({
@@ -72,20 +67,24 @@ class Ideas {
    * @memberOf Ideas
    */
   retrieveUserIdeas(req, res) {
-    Idea.find({ authorId: req.decoded.id }).exec()
+    Idea.find({ authorId: req.decoded.id })
+      .exec()
       .then((foundIdeas) => {
         return res.status(200).send({
           success: true,
           message: 'Found Ideas',
           foundIdeas
         });
-      }).catch(() => res.status(401).send({
-        success: false,
-        error: 'invalid user',
-        message: 'User not authorized'
-      }));
+      })
+      .catch(() =>
+        res.status(401).send({
+          success: false,
+          error: 'invalid user',
+          message: 'User not authorized'
+        })
+      );
   }
-    /**
+  /**
    * Get a Idea
    * Routes: GET: /api/v1/idea/:ideaId
    * @param {any} req
@@ -95,19 +94,22 @@ class Ideas {
    */
   retrieveIdea(req, res) {
     Idea.findOne({ _id: req.params.ideaId })
-    .populate('comments')
-    .exec()
-      .then(foundIdea => res.status(200).send({
-        success: true,
-        message: 'Found Idea',
-        foundIdea
-      }))
-
-      .catch(() => res.status(401).send({
-        success: false,
-        error: 'invalid Idea',
-        message: 'Invalid Idea Id'
-      }));
+      .populate('comments')
+      .exec()
+      .then(foundIdea =>
+        res.status(200).send({
+          success: true,
+          message: 'Found Idea',
+          foundIdea
+        })
+      )
+      .catch(() =>
+        res.status(401).send({
+          success: false,
+          error: 'invalid Idea',
+          message: 'Invalid Idea Id'
+        })
+      );
   }
 
   /**
@@ -119,18 +121,22 @@ class Ideas {
    * @memberOf Ideas
    */
   retrieveIdeas(req, res) {
-    Idea.find({ access: 'public' }).exec()
+    Idea.find({ access: 'public' })
+      .exec()
       .then((foundIdeas) => {
         return res.status(200).send({
           success: true,
           message: 'Found Ideas',
           foundIdeas
         });
-      }).catch(() => res.status(500).send({
-        success: false,
-        error: 'server error',
-        message: 'There was a server error, try again later'
-      }));
+      })
+      .catch(() =>
+        res.status(500).send({
+          success: false,
+          error: 'server error',
+          message: 'There was a server error, try again later'
+        })
+      );
   }
   /**
    * Edit a Idea
@@ -142,7 +148,8 @@ class Ideas {
    */
   editIdea(req, res) {
     const id = req.decoded.id;
-    Idea.findOne({ _id: req.params.ideaId }).exec()
+    Idea.findOne({ _id: req.params.ideaId })
+      .exec()
       .then((foundIdea) => {
         if (
           id == foundIdea.authorId &&
@@ -178,11 +185,14 @@ class Ideas {
             message: 'All fields are required'
           });
         }
-      }).catch(err => res.status(400).send({
-        success: false,
-        error: 'Database Error',
-        message: err.message
-      }));
+      })
+      .catch(err =>
+        res.status(400).send({
+          success: false,
+          error: 'Database Error',
+          message: err.message
+        })
+      );
   }
 
   /**
@@ -195,7 +205,8 @@ class Ideas {
    */
   deleteIdea(req, res) {
     const id = req.decoded.id;
-    Idea.findOne({ _id: req.params.ideaId }).exec()
+    Idea.findOne({ _id: req.params.ideaId })
+      .exec()
       .then((foundIdea) => {
         if (id != foundIdea.authorId) {
           return res.status(403).send({
@@ -218,43 +229,78 @@ class Ideas {
           });
         });
       })
-      .catch(error => res.status(400).send({
-        success: false,
-        error: error.messae,
-        message: 'Bad Request'
-      }));
+      .catch(error =>
+        res.status(400).send({
+          success: false,
+          error: error.messae,
+          message: 'Bad Request'
+        })
+      );
   }
 
   /**
    * Search Ideas
-   * Route: GET: /api/v1/ideas?limit=${limit}&offset=${offset}
+   * Route: GET: /api/v1/search?searchParam=${searchParam}
    * @param {any} req
    * @param {any} res
    * @return {void}
    * @memberOf Ideas
    */
-  searchIdeas(req, res) {
-    const offset = Number(req.query.offset);
-    const limit = Number(req.query.limit);
-    let count;
-    Idea.count({
-      $text: { $search: req.query.searchParam.toLowerCase() },
-      category: req.query.category.toLowerCase(),
-      access: 'public'
-    }, (err, iscount) => {
-      count = iscount;
-      const promise = Idea.find({
-        $text: { $search: req.query.searchParam.toLowerCase() },
-        category: req.query.category.toLowerCase()
+  searchIdeas = (req, res) => {
+    Idea.find(
+      {
+        $text: {
+          $search: req.query.searchParam
+        }
+      },
+      {
+        score: { $meta: 'textScore' }
+      }
+    )
+      .sort({
+        score: { $meta: 'textScore' }
       })
-      .skip(offset)
-      .limit(limit).exec();
-      promise.then(ideas => res.status(200).send({
-        ideas,
-        pageInfo: pagination(count, limit, offset),
-      }));
-    });
-  }
+      .limit(5)
+      .exec()
+      .then((ideas) => {
+        res.status(200).send({
+          success: true,
+          message: 'Ideas found',
+          ideas
+        });
+      })
+      .catch(error =>
+        res
+          .status(500)
+          .send({ success: false, message: 'Internal Server Error', error })
+      );
+  };
+
+  /**
+   * Search Category
+   * Route: GET: /api/v1/search?searchCategory=${category}
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   * @memberOf Ideas
+   */
+  searchCategories = (req, res) => {
+    Idea.find({ category: req.query.category.toLowerCase(), access: 'public' })
+      .then((ideas) => {
+        if (ideas) {
+          res.status(200).send({
+            success: true,
+            message: 'ideas found',
+            ideas
+          });
+        } else {
+          res.status(404).send({ success: false, error: 'No Ideas Found' });
+        }
+      })
+      .catch(error => res
+          .status(500)
+          .send({ message: 'Internal Server Error', error }));
+  };
 }
 
 export default new Ideas();

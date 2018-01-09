@@ -12,10 +12,9 @@ export const loadUserIdeas = foundIdeas => ({
   foundIdeas
 });
 
-export const loadSearchIdeas = (foundIdeas, metaData) => ({
+export const loadSearchIdeas = foundIdeas => ({
   type: LIST_FOUND_IDEAS,
-  foundIdeas,
-  metaData
+  foundIdeas
 });
 
 export const loadIdeaSuccess = foundIdea => ({
@@ -52,7 +51,7 @@ export const getUserIdeas = () => dispatch =>
     });
 
 /**
- * api call to get create idea
+ * api call to create idea
  * @param {object} newIdea
  * @return {object} returns foundIdeas
  */
@@ -67,21 +66,42 @@ export const createIdea = newIdea => dispatch =>
     });
 
 /**
- * api call to get create idea
+ * api call to search idea
  * @param {object} offset, limit, searchParam, category
  * @return {object} returns ideas, pageInfo
  */
-export const searchIdeas = (offset = 0, limit = 20, searchParam = '', category = '') => dispatch =>
+export const searchIdeas = (searchParam = '') => dispatch =>
   axios
-    .get(`/api/v1/ideas/search?limit=${limit}&offset=${offset}&searchParam=${searchParam}&category=${category}`)
+    .get(`/api/v1/ideas/search?searchParam=${searchParam}`)
     .then((response) => {
-      return dispatch(loadSearchIdeas(response.data.ideas, response.data.pageInfo));
+      if (response.data.ideas.length === 0) {
+        return Materialize.toast('Idea not found', 3000, 'red');
+      }
+      return dispatch(loadSearchIdeas(response.data.ideas));
+    })
+    .catch((error) => {
+      throw error;
+    });
+
+/**
+ * api call to get search by category
+ * @param {object} offset, limit, searchParam, category
+ * @return {object} returns ideas, pageInfo
+ */
+export const searchCategory = (category = '') => dispatch =>
+  axios
+    .get(`/api/v1/ideas/searchCategory?category=${category}`)
+    .then((response) => {
+      if (response.data.ideas.length === 0) {
+        return Materialize.toast('Idea not found', 3000, 'red');
+      }
+      return dispatch(loadSearchIdeas(response.data.ideas));
     })
     .catch((error) => {
       throw error;
     });
 /**
- * api call to get get idea
+ * api call to get idea
  * @param {int} ideaId
  * @return {object} returns foundIdea
  */
