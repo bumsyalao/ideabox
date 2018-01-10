@@ -1,6 +1,8 @@
 import axios from 'axios';
 import attachAuthToken from '../utils/attachAuthToken';
-import { LIST_PUBLIC_IDEAS, LIST_FOUND_IDEAS, LIST_USER_IDEAS, GET_IDEA } from './types';
+import { LIST_PUBLIC_IDEAS, LIST_FOUND_IDEAS,
+  LIST_USER_IDEAS, GET_IDEA, CLEAR_FOUND_IDEAS
+} from './types';
 
 export const loadIdeas = foundIdeas => ({
   type: LIST_PUBLIC_IDEAS,
@@ -22,6 +24,10 @@ export const loadIdeaSuccess = foundIdea => ({
   foundIdea
 });
 
+export const clearFoundIdeas = () => ({
+  type: CLEAR_FOUND_IDEAS
+});
+
 /**
  * api call to get public idea
  * @return {object} returns foundIdeas
@@ -31,6 +37,7 @@ export const getPublicIdeas = () => dispatch =>
     .get('/api/v1/ideas')
     .then((response) => {
       dispatch(loadIdeas(response.data.foundIdeas));
+      dispatch(clearFoundIdeas());
     })
     .catch((error) => {
       throw error;

@@ -19,7 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
   if (process.env.NODE_ENV === 'test') {
     mongoose.connect(process.env.DATABASE_URL_TEST);
   } else {
-    mongoose.connect(process.env.DATABASE_URL_TESTS);
+    mongoose.connect(process.env.DATABASE_URL_DEV);
   }
 } else {
   mongoose.connect(process.env.DATABASE_URL);

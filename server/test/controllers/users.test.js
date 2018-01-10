@@ -168,8 +168,6 @@ describe('Users', () => {
         });
     });
     it('Should return 409 if new username is already in use', (done) => {
-      // const username = 'candydum45gh';
-      // const email = 'chopperdum45gh@email.com';
       const username = 'Javascript';
       const email = 'javascript@jvc.com';
       chai.request(app)

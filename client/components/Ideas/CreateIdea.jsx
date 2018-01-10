@@ -111,7 +111,7 @@ export class CreateIdea extends Component {
                 value={this.state.category}
                 onChange={this.onChange}
               >
-                <option value="" disabled selected>
+                <option value="" disabled defaultValue>
                     Choose a category
                 </option>
                 <option value="Arts and Entertainment">Arts and Entertainment</option>

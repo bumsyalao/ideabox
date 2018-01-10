@@ -32,7 +32,7 @@ export class IdeaList extends Component {
    * @return {void}
    * @memberOf IdeaList
    */
-  componentWillMount() {
+  componentDidMount() {
     this.props.getPublicIdeas().catch();
   }
 
@@ -143,7 +143,7 @@ export class IdeaList extends Component {
                   value={this.state.category}
                   onChange={this.onChange}
                 >
-                  <option value="" disabled selected>Filter by category</option>
+                  <option value="" disabled defaultValue>Filter by category</option>
                   <option value="Arts and Entertainment">arts and entertainment</option>
                   <option value="Cars and other vehicles">cars and other vehicles</option>
                   <option value="Computers and Electronics">computers and electronics</option>
@@ -168,6 +168,10 @@ export class IdeaList extends Component {
                 className="row waves-effect waves-light right"
                 onClick={this.onFilter}
               ><i className="material-icons">search</i></a>
+              <a
+                className="row waves-effect waves-light right"
+                onClick={this.onCancel}
+              ><i className="material-icons">cancel</i></a>
               </div>
           </form>
         </div>

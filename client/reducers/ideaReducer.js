@@ -25,6 +25,11 @@ export default (state = initialState, action = {}) => {
         ...state,
         myIdeas: action.foundIdeas
       };
+    case types.CLEAR_FOUND_IDEAS:
+      return {
+        ...state,
+        foundIdeas: []
+      };
     case types.GET_IDEA:
       return {
         ...state,

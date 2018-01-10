@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import ideaboxlogo from '../../client/images/idea logo.png';
 import { logoutRequest } from '../actions/userAction';
+import { getPublicIdeas } from '../actions/ideaAction';
 
 /**
  * NavigationBar component
@@ -21,8 +22,11 @@ export class NavigationBar extends Component {
   constructor(props) {
     super(props);
     this.logout = this.logout.bind(this);
+    this.clearFoundIdeas = this.clearFoundIdeas.bind(this);
   }
-
+  clearFoundIdeas() {
+    this.props.getPublicIdeas();
+  }
   /**
    * Logout Function
    * Prevent default action of event
@@ -100,6 +104,7 @@ export class NavigationBar extends Component {
             data-position="bottom"
             data-delay="50"
             data-tooltip="Home"
+            onClick={this.clearFoundIdeas}
           >
             <i className="material-icons">home</i>
           </Link>
@@ -133,5 +138,5 @@ const mapStateToProps = state => ({
   access: state.access.user
 });
 
-export default connect(mapStateToProps, { logoutRequest })(withRouter(NavigationBar));
+export default connect(mapStateToProps, { logoutRequest, getPublicIdeas })(withRouter(NavigationBar));
 
