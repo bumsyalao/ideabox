@@ -6,7 +6,7 @@ Ideabox is a simple application that allows users to create a pool of ideas and 
 [![Build Status](https://travis-ci.org/bumsyalao/ideabox.svg?branch=develop)](https://travis-ci.org/bumsyalao/ideabox)
 [![Coverage Status](https://coveralls.io/repos/github/bumsyalao/ideabox/badge.svg?branch=develop)](https://coveralls.io/github/bumsyalao/ideabox?branch=develop)
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+
 ### Key Application Features
 
 A user can perform the following: 
