@@ -12,7 +12,7 @@
     "prod-build": "./node_modules/.bin/webpack --config ./webpack.config.prod.js",
     "client:test": "nightwatch",
     "e2e-setup": "selenium-standalone install",
-    "test": "NODE_ENV=test nyc -x \"server/middleware/*.js\" --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 50000  --exit server/test/**",
+    "test": "NODE_ENV=test nyc -x \"server/middleware/*.js\" --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 80000  --exit server/test/**",
     "coverage": "nyc --reporter=html --reporter=text --reporter=lcov mocha --reporter spec --require babel-register server/tests/**/*.js --timeout 600000 --exit",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },

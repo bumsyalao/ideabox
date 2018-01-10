@@ -10,7 +10,7 @@ import twitterIcon from '../../images/twitter-icon.png';
  * @class ViewIdea
  * @extends {Component}
  */
-class ViewIdea extends Component {
+export class ViewIdea extends Component {
   /**
    * Creates an instance of ViewIdea.
    * @param {any} props
@@ -123,7 +123,7 @@ class ViewIdea extends Component {
             onChange={this.onChange}
             className="materialize-textarea"
           />
-          <a onClick={this.onSubmit} className="waves-effect waves-light right">
+          <a onClick={this.onSubmit} className="waves-effect waves-light right" id="submit-btn">
             <i className="material-icons card-icons">send</i>
           </a>
         </div>

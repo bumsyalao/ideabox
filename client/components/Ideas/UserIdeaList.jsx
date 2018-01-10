@@ -8,7 +8,7 @@ import { getUserIdeas } from '../../actions/ideaAction';
  * @class UserIdeaList
  * @extends {Component}
  */
-class IdeaList extends Component {
+export class UserIdeaList extends Component {
 
   /**
    * Makes an action call to get user ideas
@@ -47,4 +47,4 @@ class IdeaList extends Component {
 const mapStateToProps = state => ({
   ideas: state.ideas.myIdeas
 });
-export default connect(mapStateToProps, { getUserIdeas })(IdeaList);
+export default connect(mapStateToProps, { getUserIdeas })(UserIdeaList);

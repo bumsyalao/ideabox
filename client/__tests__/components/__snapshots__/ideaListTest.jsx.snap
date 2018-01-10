@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`ListGroup component should match the Idea List Snapshot 1`] = `
+exports[`List Idea component should match the Idea List Snapshot 1`] = `
 <div>
   <div
-    className="row search-row"
+    className="row"
   >
     <form
-      className="col s12"
+      className="col s12 search-row"
     >
       <div
         className="row"
       >
         <div
-          className="input-field col s3 inline right white-text"
+          className="input-field col s12 inline left white-text"
         >
           <a
             className="row waves-effect waves-light right cancel-btn"
@@ -37,6 +37,16 @@ exports[`ListGroup component should match the Idea List Snapshot 1`] = `
             Search Idea
           </label>
         </div>
+        <a
+          className="row waves-effect waves-light right"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons"
+          >
+            search
+          </i>
+        </a>
       </div>
       <div
         className="row input-field col s3 right"

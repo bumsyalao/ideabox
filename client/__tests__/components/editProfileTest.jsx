@@ -54,7 +54,12 @@ describe('Edit Profile component', () => {
     const componentWillReceivePropsSpy = jest.spyOn(
       mountedComponent.instance(), 'componentWillReceiveProps'
     );
-    const nextProps = spy;
+    const nextProps = {
+      access: {
+        username: 'bunms',
+        email: 'bunms@email.com'
+      }
+    };
     mountedComponent.instance().componentWillReceiveProps(nextProps);
     expect(componentWillReceivePropsSpy).toHaveBeenCalled();
   });

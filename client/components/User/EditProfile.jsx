@@ -84,10 +84,7 @@ export class EditProfile extends Component {
         <div className="row">
           <Link
             to="/dashboard/idea-list"
-            className="btn tooltipped btn-floating btn-large waves-effect waves-light red close-btn right"
-            data-position="bottom"
-            data-delay="50"
-            data-tooltip="close"
+            className="btn btn-floating btn-large waves-effect waves-light red close-btn right"
           >
             <i className="material-icons">close</i>
           </Link>

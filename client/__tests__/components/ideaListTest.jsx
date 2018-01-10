@@ -8,7 +8,7 @@ import { IdeaCard } from '../../components/Ideas/IdeaCard';
 
 configure({ adapter: new adapter() });
 
-describe('ListGroup component', () => {
+describe('List Idea component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
@@ -24,6 +24,7 @@ describe('ListGroup component', () => {
       access: 'public',
       authorName: 'bunmi'
     }],
+    getIdeas: jest.fn(() => Promise.resolve()),
     getPublicIdeas: jest.fn(() => Promise.resolve()),
     searchIdeas: jest.fn(() => Promise.resolve())
   };
@@ -54,17 +55,6 @@ describe('ListGroup component', () => {
     const pagination = { pageCount: '', count: '' };
     component.setProps({ foundIdeas, pagination });
     expect(newerspy).toHaveBeenCalled();
-  });
-
-  it('calls handlePageClick function', () => {
-    const handlePageClickSpy = jest.spyOn(
-      component.instance(), 'handlePageClick'
-    );
-    const data = {
-      selected: 1
-    };
-    component.instance().handlePageClick(data);
-    expect(handlePageClickSpy).toHaveBeenCalled();
   });
 
   it('calls onSearch function', () => {

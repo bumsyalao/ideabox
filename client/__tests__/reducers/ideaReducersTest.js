@@ -52,7 +52,6 @@ describe('load search ideas reducer', () => {
     const newState = ideas(state, action);
     expect(newState.foundIdeas[0].title).toEqual('new idea for the code base');
     expect(newState.foundIdeas[0].category).toEqual('computers and electronics');
-    expect(newState.pagination.page).toEqual(1);
   });
 });
 describe('load idea reducer', () => {

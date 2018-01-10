@@ -5,7 +5,10 @@ module.exports = {
     email: 'chopper@email.com',
     password: 'medicine'
   },
-
+  validLogin: {
+    username: 'candy',
+    password: 'medicine'
+  },
   invalidUpdate: {
     username: 'candy',
     email: 'chopper@email.com'
@@ -31,10 +34,14 @@ module.exports = {
     email: 'chopper@email.com',
     password: 'invalid'
   },
+
   updatedUser: {
     username: 'updated me',
-    email: 'updated me at test.com',
-    password: 'update'
+    email: 'updatedme@test.com'
+  },
+  updatedUserDetails: {
+    username: 'Java',
+
   },
   invalidEmail: {
     username: 'good',
