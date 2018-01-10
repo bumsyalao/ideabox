@@ -55,7 +55,8 @@ describe('Auth Component', () => {
       expect(component.find('#register-btn').length).toEqual(1);
       expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
     });
-  it('should register user when onRegister function should run', () => {
+
+  it('should register user when onRegister function is called', () => {
     component.instance().onChange(
       { target: { value: 'banku', id: 'username' } });
     component.instance().onChange(
@@ -67,6 +68,29 @@ describe('Auth Component', () => {
     expect(component.state('password')).toEqual('banku123');
     const newspy = jest.spyOn(component.instance(), 'onRegister');
     component.find('#register-btn').simulate('click', { preventDefault: () => {} });
+    expect(newspy).toHaveBeenCalled();
+  });
+
+  it(
+    'should submit fields in state when onLogin function is called', () => {
+      jest.spyOn(component.instance(), 'onLogin');
+      component.instance().onChange(
+      { target: { value: 'banku', id: 'username' } });
+      component.instance().onChange(
+      { target: { value: 'banku123', id: 'password' } });
+      component.find('#login-btn').simulate('click', { preventDefault: () => {} });
+      expect(component.find('#login-btn').length).toEqual(1);
+      expect(component.instance().onSubmit.mock.calls.length).toEqual(0);
+    });
+  it('should login user when onLogin function is called', () => {
+    component.instance().onChange(
+      { target: { value: 'banku', id: 'username' } });
+    component.instance().onChange(
+      { target: { value: 'banku123', id: 'password' } });
+    expect(component.state('username')).toEqual('banku');
+    expect(component.state('password')).toEqual('banku123');
+    const newspy = jest.spyOn(component.instance(), 'onLogin');
+    component.find('#login-btn').simulate('click', { preventDefault: () => {} });
     expect(newspy).toHaveBeenCalled();
   });
 });

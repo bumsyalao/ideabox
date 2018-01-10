@@ -10,7 +10,7 @@ import { deleteIdea } from '../../actions/ideaAction';
  * @class UserIdeaCard
  * @extends {Component}
  */
-class UserIdeaCard extends Component {
+export class UserIdeaCard extends Component {
   /**
    * Creates an instance of UserIdeaCard.
    * @param {any} props

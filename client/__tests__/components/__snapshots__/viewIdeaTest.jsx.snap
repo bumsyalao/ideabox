@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Idea List component should match the Idea List Snapshot 1`] = `
+<div
+  className="dashboard"
+>
+  <div
+    className="view-page-wrapper"
+  >
+    <div
+      className="view-page"
+    >
+      <div
+        className="row"
+      >
+        <h4 />
+        <a
+          className="tooltipped right"
+          data-delay="50"
+          data-position="bottom"
+          data-tooltip="Like this? share on twitter"
+          href="https://twitter.com/intent/tweet?text=This%20is%20amazing%20you%20should%20read%20it&url=null/view/undefined"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <img
+            className="right twitter-icon"
+            height="50px"
+            src={
+              Object {
+                "process": [Function],
+              }
+            }
+            width="50px"
+          />
+        </a>
+        <p>
+           By: 
+           
+        </p>
+        <div
+          className="description-body"
+        >
+          <p
+            dangerouslySetInnerHTML={
+              Object {
+                "__html": undefined,
+              }
+            }
+          />
+        </div>
+        <div
+          className="comment-section"
+        >
+          <ul />
+        </div>
+        <label
+          htmlFor="textarea1"
+        >
+          Add a comment
+        </label>
+        <textarea
+          className="materialize-textarea"
+          id="comment"
+          onChange={[Function]}
+          value=""
+        />
+        <a
+          className="waves-effect waves-light right"
+          id="submit-btn"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons card-icons"
+          >
+            send
+          </i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

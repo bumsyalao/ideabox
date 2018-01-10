@@ -83,8 +83,8 @@ export class IdeaCard extends Component {
               <a
                 id={id}
                 href={`${window.location.origin}/view/${id}`}
-                onClick={e => {
-                  e.preventDefault();
+                onClick={(event) => {
+                  event.preventDefault();
                   this.copyLink(`${window.location.origin}/view/${id}`);
                 }}
               >

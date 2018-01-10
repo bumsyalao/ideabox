@@ -20,35 +20,24 @@ const { expect } = chai;
 
 chai.should();
 chai.use(chaiHttp);
-let validToken;
-let ideaId;
 
-before(() => {
-  mongoose.createConnection(process.env.DATABASE_URL_TEST, () => {
-    mongoose.connection.db.dropDatabase(() => {
-    });
-  });
-  api
+describe('Ideas', () => {
+  let validToken;
+  let ideaId;
+  before((done) => {
+    api
     .post('/api/v1/user/register', Users.register)
     .set('Accept', 'application/json')
     .send(dummyUser)
     .end((err, res) => {
       if (!err) {
         validToken = res.body.token;
-        api
-        .post('/api/v1/idea', Ideas.createIdea)
-        .set('x-access-token', validToken)
-        .send(valid3Idea)
-        .end((err, res) => {
-          if (!err) {
-            ideaId = res.body.newIdea._id;
-          }
-        });
       }
+      done();
     });
-});
+  });
 
-describe('Ideas', () => {
+
   describe('Create Idea', () => {
     it('should return 201 when succesful', (done) => {
       api
@@ -60,6 +49,7 @@ describe('Ideas', () => {
             expect(res).to.have.status(201);
             res.body.should.have.property('message')
               .equal('Your Idea has been created successfully');
+            ideaId = res.body.newIdea._id;
           }
           done();
         });

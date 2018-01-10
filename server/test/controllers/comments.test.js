@@ -23,12 +23,8 @@ let validToken;
 let ideaId;
 
 
-xdescribe('Comments', () => {
+describe('Comments', () => {
   before((done) => {
-    mongoose.createConnection(process.env.DATABASE_URL_TEST, () => {
-      mongoose.connection.db.dropDatabase(() => {
-      });
-    });
     api
     .post('/api/v1/user/register', Users.register)
     .set('Accept', 'application/json')

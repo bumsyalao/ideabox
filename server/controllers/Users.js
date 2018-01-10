@@ -149,59 +149,56 @@ class Users {
    * @returns {void}
    * @memberOf Users
    */
-  updateProfile(req, res) {
-    User.findOne({ _id: req.decoded.id })
-      .then((updatedUser) => {
-        if (
-          req.body.username.trim() &&
-          req.body.email.trim()
-        ) {
-          User.findOne({ username: req.body.username })
-            .then((existingUsername) => {
-              if (existingUsername) {
-                return res.status(400).send({
-                  success: false,
-                  error: 'Existing username',
-                  message: 'Sorry a user exists with that username'
-                });
-              }
-              updatedUser.username = req.body.username;
-              updatedUser.email = req.body.email;
-              updatedUser.save((err) => {
-                if (err) {
-                  return res.status(400).send({
-                    success: false,
-                    error: err.message,
-                    message: 'There was an error while updating your Profile'
-                  });
-                }
+  updateProfile = (req, res) => {
+    if (!req.body.username || !req.body.email) {
+      return res.status(400).send({
+        success: false,
+        message: 'All fields are required'
+      });
+    }
+    User.findOne({
+      username: req.body.username.trim(),
+    })
+      .exec()
+      .then((username) => {
+        if (username) {
+          res.status(409).send({
+            message: 'Sorry a user exists with that username',
+            success: false
+          });
+        } else {
+          const newUsername = req.body.username.trim();
+          const newEmail = req.body.email.trim();
+          User.findByIdAndUpdate(
+            { _id: req.decoded.id },
+            {
+              $set: {
+                username: newUsername,
+                email: newEmail,
+              },
+            },
+            { new: true },
+          )
+            .exec((error, user) => {
+              if (user) {
                 const foundUser = {
-                  id: updatedUser._id,
-                  username: updatedUser.username,
-                  email: updatedUser.email
+                  id: user._id,
+                  username: user.username,
+                  email: user.email
                 };
                 return res.status(200).send({
                   success: true,
                   message: 'Your profile has been updated succesfully',
                   foundUser
                 });
-              });
-            });
-        } else {
-          return res.status(400).send({
-            success: false,
-            error: 'Empty fields',
-            message: 'All fields are required'
-          });
+              }
+              return res.status(404).send({ success: false, message: 'User not Found' });
+            })
+            .catch(error =>
+              res.status(500).send({ error }));
         }
-      }).catch(() => res.status(404).send({
-        success: false,
-        error: 'Not found',
-        message: 'User does not exist'
-
-      }));
-  }
-
+      });
+  };
   /**
    * Send Reset password email
    * Routes: POST: /api/v1/user/forgot-password
@@ -213,7 +210,6 @@ class Users {
     req.body.email = req.body.email.trim();
     const hash = crypto.randomBytes(20).toString('hex');
     const date = Date.now() + 3600000;
-
     if (req.body.email) {
       return User.findOne({
         email: req.body.email
@@ -226,7 +222,6 @@ class Users {
         }
         user.hash = hash;
         user.expiryTime = date;
-
         user.save((error, updatedUser) => {
           if (error) {
             return res.status(400).send({
@@ -238,9 +233,10 @@ class Users {
           // send mail to the user
           sendMail(updatedUser.email, hash, req.headers.host);
 
-          res.send({
+          res.status(200).send({
             success: true,
-            message: 'Mail has been sent'
+            message: 'Mail has been sent',
+            hash
           });
         });
       }).catch(error => res.status(500).send({
@@ -264,10 +260,9 @@ class Users {
     return User.findOne({ hash: req.params.hash })
       .then((user) => {
         if (
-          req.body.password
+          req.body.password !== ''
         ) {
           const currentTime = Date.now();
-
           if (currentTime > user.expiryTime) {
             return res.status(410).send({
               success: false,
@@ -292,7 +287,7 @@ class Users {
         } else {
           return res.status(400).send({
             success: false,
-            message: 'Please confirm passwords'
+            message: 'Please enter valid password'
           });
         }
       })

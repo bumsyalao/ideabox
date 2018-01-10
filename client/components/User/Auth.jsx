@@ -195,6 +195,7 @@ export class Auth extends Component {
                       Forgot password?
                     </Link>
                     <input
+                      id="login-btn"
                       onClick={this.onLogin}
                       type="submit"
                       value="Log In"
