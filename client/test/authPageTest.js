@@ -35,7 +35,7 @@ module.exports = new (function () {
       .waitForElementVisible('.forms_field-input', 1500)
       .waitForElementVisible('#username', 1500)
       .pause(3000)
-      .setValue('#username', 'bunmi')
+      .setValue('#username', 'bunmitest')
       .pause(3000)
       .setValue('#password', 'bunmi')
       .pause(3000)

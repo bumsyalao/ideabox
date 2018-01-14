@@ -59,8 +59,8 @@ exports[`List Idea component should match the Idea List Snapshot 1`] = `
           value=""
         >
           <option
+            defaultValue={true}
             disabled={true}
-            selected={true}
             value=""
           >
             Filter by category
@@ -169,6 +169,16 @@ exports[`List Idea component should match the Idea List Snapshot 1`] = `
             className="material-icons"
           >
             search
+          </i>
+        </a>
+        <a
+          className="row waves-effect waves-light right"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons"
+          >
+            cancel
           </i>
         </a>
       </div>

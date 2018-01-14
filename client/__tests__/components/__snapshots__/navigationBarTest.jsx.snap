@@ -105,6 +105,7 @@ exports[`NavigationBar component should match the NavigationBar component snapsh
       data-position="bottom"
       data-tooltip="Home"
       href="#"
+      onClick={[Function]}
       replace={false}
       to="/dashboard/idea-list"
     >

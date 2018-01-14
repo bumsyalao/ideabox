@@ -168,10 +168,6 @@ export class IdeaList extends Component {
                 className="row waves-effect waves-light right"
                 onClick={this.onFilter}
               ><i className="material-icons">search</i></a>
-              <a
-                className="row waves-effect waves-light right"
-                onClick={this.onCancel}
-              ><i className="material-icons">cancel</i></a>
               </div>
           </form>
         </div>

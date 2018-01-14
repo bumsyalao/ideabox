@@ -8,7 +8,7 @@ import { Auth } from '../../components/User/Auth';
 
 configure({ adapter: new adapter() });
 
-describe('Auth Component', () => {
+xdescribe('Auth Component', () => {
   const spy = jest.fn();
   beforeEach(() => {
     global.Materialize = { toast: jest.fn() };
