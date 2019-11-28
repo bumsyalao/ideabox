@@ -96,7 +96,7 @@
     "redux-thunk": "^2.2.0",
     "sass-loader": "^6.0.6",
     "scss-loader": "0.0.1",
-    "sequelize": "^3.30.4",
+    "sequelize": "^5.15.1",
     "showdown": "^1.9.1",
     "sinon": "^4.0.1",
     "style-loader": "^0.19.0",
