@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`User Idea List component should match the Idea List Snapshot 1`] = `
+<div
+  className="idea-list grid"
+>
+  <Connect(UserIdeaCard)
+    access="public"
+    authorName="bunmi"
+    description="stuff"
+    id="1abcdj"
+    key="1abcdj"
+    title="stuff"
+  />
+</div>
+`;

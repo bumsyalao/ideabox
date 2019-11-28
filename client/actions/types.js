@@ -1,0 +1,13 @@
+export const LOGIN_USER = 'LOGIN_USER';
+export const REGISTER_USER = 'REGISTER_USER';
+export const LOGGEDIN_USER = 'LOGGEDIN_USER';
+export const LOGOUT_USER = 'LOGGEDOUT_USER';
+export const CREATE_IDEA = 'CREATE_IDEA';
+export const LIST_PUBLIC_IDEAS = 'LIST_PUBLIC_IDEAS';
+export const LIST_FOUND_IDEAS = 'LIST_FOUND_IDEAS';
+export const LIST_USER_IDEAS = 'LIST_USER_IDEAS';
+export const EDIT_USER_PROFILE = 'EDIT_USER_PROFILE';
+export const GET_USER = 'GET_USER';
+export const GET_IDEA = 'GET_IDEA';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const GET_COMMENTS = 'GET_COMMENTS';

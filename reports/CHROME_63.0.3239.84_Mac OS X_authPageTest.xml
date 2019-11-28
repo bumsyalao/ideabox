@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="1"
+            tests="5">
+
+  <testsuite name="authPageTest"
+    errors="0" failures="1" hostname="" id="" package="authPageTest" skipped="2"
+    tests="5" time="192.5" timestamp="Thu, 21 Dec 2017 00:47:28 GMT">
+  
+    <testcase name="shows the landing page" classname="authPageTest" time="5.822" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="landing page should have button text GET STARTED" classname="authPageTest" time="5.426" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Login page should have heading text LOGIN" classname="authPageTest" time="181.3" assertions="1">  <failure message="Timed out while waiting for element &lt;.user_options-container&gt; to be present for 1500 milliseconds.">    at testCase.Login page should have heading text LOGIN (/Users/andeladeveloper/Documents/Projects/ideabox/client/test/authPageTest.js:23:8)
+    at _combinedTickCallback (internal/process/next_tick.js:73:7)</failure>
+
+    
+    </testcase>
+  
+
+  
+
+  
+    
+    <testcase
+      name="Login page should successfully login registered user" classname="authPageTest">
+      <skipped />
+    </testcase>
+    
+    <testcase
+      name="Register page should successfully register user" classname="authPageTest">
+      <skipped />
+    </testcase>
+    
+  
+  </testsuite>
+</testsuites>

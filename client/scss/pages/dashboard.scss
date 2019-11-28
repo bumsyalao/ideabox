@@ -1,0 +1,44 @@
+
+.nav-style {
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-bottom: 0.1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 2rem;
+    color: #fff;
+      >a {
+        background: transparent;
+        margin-top: 3rem;
+        color: #fff;
+    }
+    
+}
+.nav-items {
+  margin-top: 3rem !important;
+  display: flex;
+  flex-direction: row;
+  > a {
+    color: #fff;
+    margin-left: 50px;
+  }
+}
+
+.dashboard {
+  min-height: 100vh;
+  background-image: url('https://res.cloudinary.com/dcpfdxsly/image/upload/v1574973935/wallpaper_dhwcau.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+}
+.img-logo{
+  width: 15vw;
+  margin-top: 1rem;
+  height: 7vh;
+}
+.material-icons {
+  font-size: 35px !important;
+}

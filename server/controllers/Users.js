@@ -14,7 +14,7 @@ const secret = process.env.SECRET_TOKEN;
  */
 class Users {
   /**
-   *
+   * Register User
    * Route: POST: /api/v1/user/register
    * @param {object} req
    * @param {object} res
@@ -23,7 +23,6 @@ class Users {
    */
   register(req, res) {
     if (
-      req.body.username &&
       req.body.username.trim() &&
       req.body.password &&
       req.body.email &&
@@ -81,7 +80,7 @@ class Users {
   }
 
   /**
-   *
+   * Login User
    * Route: POST: /api/v1/user/login
    * @param {any} req
    * @param {any} res
@@ -142,7 +141,64 @@ class Users {
       });
     }
   }
-
+  /**
+   * Update user profile
+   * Route: PUT: /api/v1/user/update
+   * @param {object} req
+   * @param {object} res
+   * @returns {void}
+   * @memberOf Users
+   */
+  updateProfile = (req, res) => {
+    if (!req.body.username || !req.body.email) {
+      return res.status(400).send({
+        success: false,
+        message: 'All fields are required'
+      });
+    }
+    User.findOne({
+      username: req.body.username.trim(),
+    })
+      .exec()
+      .then((username) => {
+        if (username) {
+          res.status(409).send({
+            message: 'Sorry a user exists with that username',
+            success: false
+          });
+        } else {
+          const newUsername = req.body.username.trim();
+          const newEmail = req.body.email.trim();
+          User.findByIdAndUpdate(
+            { _id: req.decoded.id },
+            {
+              $set: {
+                username: newUsername,
+                email: newEmail,
+              },
+            },
+            { new: true },
+          )
+            .exec((error, user) => {
+              if (user) {
+                const foundUser = {
+                  id: user._id,
+                  username: user.username,
+                  email: user.email
+                };
+                return res.status(200).send({
+                  success: true,
+                  message: 'Your profile has been updated succesfully',
+                  foundUser
+                });
+              }
+              return res.status(404).send({ success: false, message: 'User not Found' });
+            })
+            .catch(error =>
+              res.status(500).send({ error }));
+        }
+      });
+  };
   /**
    * Send Reset password email
    * Routes: POST: /api/v1/user/forgot-password
@@ -154,7 +210,6 @@ class Users {
     req.body.email = req.body.email.trim();
     const hash = crypto.randomBytes(20).toString('hex');
     const date = Date.now() + 3600000;
-
     if (req.body.email) {
       return User.findOne({
         email: req.body.email
@@ -167,7 +222,6 @@ class Users {
         }
         user.hash = hash;
         user.expiryTime = date;
-
         user.save((error, updatedUser) => {
           if (error) {
             return res.status(400).send({
@@ -179,9 +233,10 @@ class Users {
           // send mail to the user
           sendMail(updatedUser.email, hash, req.headers.host);
 
-          res.send({
+          res.status(200).send({
             success: true,
-            message: 'Mail has been sent'
+            message: 'Mail has been sent',
+            hash
           });
         });
       }).catch(error => res.status(500).send({
@@ -196,7 +251,7 @@ class Users {
 
   /**
    * Update Password
-   * Route: POST: /api/v1/user/update-password/:hash
+   * Route: PUT: /api/v1/user/update-password/:hash
    * @param {object} req
    * @param {object} res
    *  @return {void}
@@ -204,27 +259,17 @@ class Users {
   updatePassword(req, res) {
     return User.findOne({ hash: req.params.hash })
       .then((user) => {
-        if (user === null) {
-          return res.status(404).send({
-            success: false,
-            message: 'User does not exist'
-          });
-        }
-
         if (
-          req.body.newPassword &&
-          req.body.confirmPassword &&
-          req.body.newPassword === req.body.confirmPassword
+          req.body.password !== ''
         ) {
           const currentTime = Date.now();
-
           if (currentTime > user.expiryTime) {
             return res.status(410).send({
               success: false,
               message: 'Expired link'
             });
           }
-          user.password = req.body.newPassword;
+          user.password = req.body.password;
           user.save((err, updatedUser) => {
             if (err) {
               return res.status(400).send({
@@ -242,7 +287,7 @@ class Users {
         } else {
           return res.status(400).send({
             success: false,
-            message: 'Please confirm passwords'
+            message: 'Please enter valid password'
           });
         }
       })
@@ -250,6 +295,27 @@ class Users {
         success: false,
         message: error.message
       }));
+  }
+
+  /**
+   * View a User
+   * Route: GET: /api/v1/user/profile
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   * @memberOf Users
+   */
+  viewUser(req, res) {
+    User.findOne({ username: req.decoded.username }).exec()
+    .then(foundUser => res.status(200).send({
+      success: true,
+      message: 'found User',
+      foundUser
+    })).catch(() => res.status(401).send({
+      success: false,
+      error: 'invalid user',
+      message: 'User not authorized'
+    }));
   }
 }
 

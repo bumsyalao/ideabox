@@ -37,10 +37,10 @@ const sendMail = (email, hash, headers) => {
                   background:#fff;
                   font:14px sans-serif;
                   color:#686f7a;
-                  border-top:4px solid #e57373;
-                  border-bottom:4px solid #e57373;
-                  border-right:4px solid #e57373;   
-                  border-left:4px solid #e57373;
+                  border-top:4px solid #a6c6a6;
+                  border-bottom:4px solid #a6c6a6;
+                  border-right:4px solid #a6c6a6;   
+                  border-left:4px solid #a6c6a6;
                   margin-bottom:20px">
                 <div 
                   style="
@@ -54,8 +54,8 @@ const sendMail = (email, hash, headers) => {
                       margin:0; 
                       font-size:30px;">
                       <img height="40px"
-                        style="margin-left: 2%"
-                        src="http://78.media.tumblr.com/007242ca2e10d514ee815770428a8343/tumblr_oa2moo9w1A1qinh1vo1_1280.jpg">
+                        style="margin-left: 2%; width: 20%; height: 20%"
+                        src="https://res.cloudinary.com/dcpfdxsly/image/upload/v1512474925/ideaBox_copy_u4gdxd.png">
                       Idea-Box</h4>
                 </div>
                 <div style="padding:30px 20px;line-height:1.5em;color:#686f7a">
@@ -76,13 +76,13 @@ const sendMail = (email, hash, headers) => {
                       color:#686f7a">
                       Please click the button below to change your password.
                   </p>
-                  <a href="http://${headers}/api/v1/user/update-password/${hash}" 
+                  <a href="http://${headers}/update-password/${hash}" 
                     style="
                       display:inline-block;
                       font-size:15px;color:#ffffff;
                       padding:10px 15px;
                       text-decoration:none;
-                      background-color:#e57373;
+                      background-color:#a6c6a6;
                       border-radius:3px" 
                       target="_blank">
                       Change Your Password
@@ -98,7 +98,6 @@ const sendMail = (email, hash, headers) => {
     if (error) {
       return error;
     }
-    console.log(`${info.messageId} send: ${info.response}`);
   });
 };
 

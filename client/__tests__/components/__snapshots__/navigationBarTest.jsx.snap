@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavigationBar component should match the NavigationBar component snapshot 1`] = `
+<div
+  className="nav-style nav"
+>
+  <ul
+    className="side-nav"
+    id="slide-out"
+  >
+    <li>
+      <div
+        className="user-view"
+      >
+        <div
+          className="background"
+        >
+          <img
+            src="images/office.jpg"
+          />
+        </div>
+        <img
+          className="img-logo"
+          src={
+            Object {
+              "process": [Function],
+            }
+          }
+        />
+        <a
+          href="#!name"
+        >
+          <span
+            className="black-text name"
+          >
+            bunmi
+          </span>
+        </a>
+        <a
+          href="#!email"
+        >
+          <span
+            className="black-text email"
+          >
+            bunmi@email.com
+          </span>
+        </a>
+      </div>
+    </li>
+    <li>
+      <Link
+        href="#!"
+        replace={false}
+        to="/dashboard/user-update"
+      >
+        <i
+          className="material-icons"
+        >
+          person_outline
+        </i>
+        Edit Profile
+      </Link>
+    </li>
+    <li>
+      <div
+        className="divider"
+      />
+    </li>
+    <li>
+      <Link
+        className="waves-effect"
+        href="#!"
+        replace={false}
+        to="/dashboard/my-ideas"
+      >
+        <i
+          className="material-icons"
+        >
+          lightbulb_outline
+        </i>
+        My Ideas
+      </Link>
+    </li>
+  </ul>
+  <a
+    className="button-collapse tooltipped"
+    data-activates="slide-out"
+    data-delay="50"
+    data-position="bottom"
+    data-tooltip="Menu"
+    href="#"
+  >
+    <i
+      className="material-icons"
+    >
+      menu
+    </i>
+  </a>
+  <div
+    className="nav-items"
+  >
+    <Link
+      className="tooltipped"
+      data-delay="50"
+      data-position="bottom"
+      data-tooltip="Home"
+      href="#"
+      replace={false}
+      to="/dashboard/idea-list"
+    >
+      <i
+        className="material-icons"
+      >
+        home
+      </i>
+    </Link>
+    <Link
+      className="tooltipped"
+      data-delay="50"
+      data-position="bottom"
+      data-tooltip="Create Idea"
+      href="#"
+      replace={false}
+      to="/dashboard/create-idea"
+    >
+      <i
+        className="material-icons"
+      >
+        add_circle_outline
+      </i>
+    </Link>
+    <a
+      className="tooltipped"
+      data-delay="50"
+      data-position="bottom"
+      data-tooltip="Logout"
+      href="#"
+      onClick={[Function]}
+    >
+      <i
+        className="material-icons"
+      >
+        power_settings_new
+      </i>
+    </a>
+  </div>
+</div>
+`;

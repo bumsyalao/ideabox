@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List Idea component should match the Idea List Snapshot 1`] = `
+<div
+  className="grid-item card hoverable"
+>
+  <div
+    className="card-content"
+  >
+    <span
+      className="card-title activator grey-text text-darken-4"
+    >
+      <i
+        className="material-icons right"
+      >
+        more_vert
+      </i>
+    </span>
+    <p>
+       By: 
+       
+    </p>
+    <div
+      className="category-text"
+    />
+  </div>
+  <div
+    className="card-action"
+  >
+    <ul
+      className="card-icons"
+    >
+      <li>
+        <a
+          href="null/view/undefined"
+          onClick={[Function]}
+        >
+          <i
+            className="tiny material-icons icon-btn tooltipped"
+            data-delay="50"
+            data-position="bottom"
+            data-tooltip="copy link"
+          >
+            insert_link
+          </i>
+        </a>
+      </li>
+      <li>
+        <Link
+          replace={false}
+          to="/dashboard/view/undefined"
+        >
+          <i
+            className="tiny material-icons icon-btn tooltipped"
+            data-delay="50"
+            data-position="bottom"
+            data-tooltip="view article"
+          >
+            remove_red_eye
+          </i>
+        </Link>
+      </li>
+    </ul>
+  </div>
+  <div
+    className="card-reveal"
+  >
+    <span
+      className="card-title grey-text text-darken-4"
+    >
+      <i
+        className="material-icons right"
+      >
+        close
+      </i>
+    </span>
+    <p
+      className="truncate"
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": undefined,
+        }
+      }
+    />
+  </div>
+</div>
+`;

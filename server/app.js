@@ -3,7 +3,13 @@ import logger from 'morgan';
 import bodyParser from 'body-parser';
 import path from 'path';
 import mongoose from 'mongoose';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+import config from '../webpack.config';
 
+const compiler = webpack(config);
+const env = process.env.NODE_ENV || 'development';
 const route = require('./routes');
 
 require('dotenv').config();
@@ -13,7 +19,7 @@ if (process.env.NODE_ENV !== 'production') {
   if (process.env.NODE_ENV === 'test') {
     mongoose.connect(process.env.DATABASE_URL_TEST);
   } else {
-    mongoose.connect(process.env.DATABASE_URL_DEV);
+    mongoose.connect(process.env.DATABASE_URL_TESTS);
   }
 } else {
   mongoose.connect(process.env.DATABASE_URL);
@@ -25,16 +31,28 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-// const router = express.Router();
+if (env === 'development') {
+  app.use(webpackMiddleware(compiler, {
+    hot: true,
+    publicPath: config.output.publicPath,
+    noInfo: true
+  }));
+  app.use(webpackHotMiddleware(compiler));
+}
+app.use(express.static(path.join(__dirname, '../client')));
+
+route(app);
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'index.html'));
+});
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client', 'index.html'));
+});
 
 const PORT = parseInt(process.env.PORT, 10) || 3000;
 
 app.set('port', PORT);
-
-route(app);
-app.get('*', (req, res) => {
-  res.send('Hello World!');
-});
 
 app.listen(PORT, () => {
   console.log(`App started on port ${PORT}!`);

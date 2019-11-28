@@ -1,0 +1,181 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List Idea component should match the Idea List Snapshot 1`] = `
+<div>
+  <div
+    className="row"
+  >
+    <form
+      className="col s12 search-row"
+    >
+      <div
+        className="row"
+      >
+        <div
+          className="input-field col s12 inline left white-text"
+        >
+          <a
+            className="row waves-effect waves-light right cancel-btn"
+            onClick={[Function]}
+          >
+            <i
+              className="material-icons icon-btn"
+            >
+              cancel
+            </i>
+          </a>
+          <input
+            className="validate"
+            id="searchParam"
+            onChange={[Function]}
+            type="text"
+            value=""
+          />
+          <label
+            htmlFor="search-param"
+          >
+            Search Idea
+          </label>
+        </div>
+        <a
+          className="row waves-effect waves-light right"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons"
+          >
+            search
+          </i>
+        </a>
+      </div>
+      <div
+        className="row input-field col s3 right"
+      >
+        <select
+          className="browser-default"
+          id="category"
+          name="category"
+          onChange={[Function]}
+          value=""
+        >
+          <option
+            disabled={true}
+            selected={true}
+            value=""
+          >
+            Filter by category
+          </option>
+          <option
+            value="Arts and Entertainment"
+          >
+            arts and entertainment
+          </option>
+          <option
+            value="Cars and other vehicles"
+          >
+            cars and other vehicles
+          </option>
+          <option
+            value="Computers and Electronics"
+          >
+            computers and electronics
+          </option>
+          <option
+            value="Education and Communication"
+          >
+            education and communication
+          </option>
+          <option
+            value="Family Life"
+          >
+            family life
+          </option>
+          <option
+            value="Finance and Business"
+          >
+            finance and business
+          </option>
+          <option
+            value="Food and Entertaining"
+          >
+            food and entertaining
+          </option>
+          <option
+            value="Health"
+          >
+            health
+          </option>
+          <option
+            value="Hobbies and Craft"
+          >
+            hobbies and craft
+          </option>
+          <option
+            value="Holidays and Traditions"
+          >
+            holidays and traditions
+          </option>
+          <option
+            value="Home and Gardens"
+          >
+            home and gardens
+          </option>
+          <option
+            value="Personal care and Style"
+          >
+            personal care and style
+          </option>
+          <option
+            value="Pets and Aminals"
+          >
+            pets and aminals
+          </option>
+          <option
+            value="Philosophy and Religion"
+          >
+            philosophy and religion
+          </option>
+          <option
+            value="Relationships"
+          >
+            relationships
+          </option>
+          <option
+            value="Sports and Finance"
+          >
+            sports and finance
+          </option>
+          <option
+            value="Travel"
+          >
+            travel
+          </option>
+          <option
+            value="Work world"
+          >
+            work world
+          </option>
+          <option
+            value="Youth"
+          >
+            youth
+          </option>
+        </select>
+        <a
+          className="row waves-effect waves-light right"
+          onClick={[Function]}
+        >
+          <i
+            className="material-icons"
+          >
+            search
+          </i>
+        </a>
+      </div>
+    </form>
+  </div>
+  <div
+    className="idea-list grid grid-margin"
+  />
+</div>
+`;
