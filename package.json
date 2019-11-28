@@ -118,7 +118,7 @@
     "coveralls": "^3.0.9",
     "ember-cli-materialize": "^0.22.0",
     "enzyme-adapter-react-16": "^1.0.0",
-    "eslint": "^3.19.0",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-import-resolver-webpack": "^0.8.3",
     "eslint-plugin-import": "^2.7.0",
